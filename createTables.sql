@@ -61,6 +61,31 @@ CREATE TABLE `db_final`.`period` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION);
                
+CREATE TABLE `db_final`.`location` (
+  `location_id` VARCHAR(100) NOT NULL,
+  `shelf_no` INT NULL,
+  `row` INT NULL,
+  `column` INT NULL,
+  PRIMARY KEY (`location_id`));
+  
+CREATE TABLE `db_final`.`author` (
+  `author_id` VARCHAR(100) NOT NULL,
+  `author_name` VARCHAR(45) NOT NULL,
+  `date_of_birth` DATE NULL,
+  PRIMARY KEY (`author_id`));
+  
+CREATE TABLE `db_final`.`publisher` (
+  `publisher_id` VARCHAR(100) NOT NULL,
+  `publisher_name` VARCHAR(45) NOT NULL,
+  `country` VARCHAR(45) NOT NULL,
+  `city` VARCHAR(45) NULL,
+  PRIMARY KEY (`publisher_id`));
+  
+  CREATE TABLE `db_final`.`category` (
+  `category_id` VARCHAR(100) NOT NULL,
+  `category_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`category_id`));
+               
 INSERT  INTO `db_final`.`customer` (
 `customer_id`, 
 `customer_name`, 
