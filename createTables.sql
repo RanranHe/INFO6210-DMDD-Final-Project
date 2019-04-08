@@ -2,14 +2,14 @@ CREATE DATABASE db_final;
 
 USE db_final;
 
-CREATE TABLE IF NOT EXISTS `db_final`.`customer` (
+CREATE TABLE `db_final`.`customer` (
   `customer_id` VARCHAR(100) NOT NULL,
   `customer_name` VARCHAR(45) NOT NULL,
   `customer_phone` CHAR(10) NOT NULL,
   `customer_email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`customer_id`));
               
-CREATE TABLE IF NOT EXISTS `db_final`.`timesheet` (
+CREATE TABLE `db_final`.`timesheet` (
   `timesheet_id` VARCHAR(100) NOT NULL,
   `year` INT NOT NULL,
   `month` INT NOT NULL,
