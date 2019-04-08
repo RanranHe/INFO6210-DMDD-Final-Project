@@ -86,6 +86,62 @@ CREATE TABLE `db_final`.`publisher` (
   `category_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`category_id`));
                
+CREATE TABLE `db_final`.`book` (
+  `book_id` VARCHAR(100) NOT NULL,
+  `price` DECIMAL(10,1) NULL,
+  `location_id` VARCHAR(100) NULL,
+  `stock` INT NULL,
+  `book_name` VARCHAR(45) NOT NULL,
+  `publisher_id` VARCHAR(100) NOT NULL,
+  `author_id` VARCHAR(100) NOT NULL,
+  `publisher_date` DATE NULL,
+  `description` VARCHAR(256) NULL,
+  `category_id` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`book_id`),
+  INDEX `locationID_idx` (`location_id` ASC) VISIBLE,
+  INDEX `publisherID_idx` (`publisher_id` ASC) VISIBLE,
+  INDEX `author_id_idx` (`author_id` ASC) VISIBLE,
+  INDEX `category_id_idx` (`category_id` ASC) VISIBLE,
+  CONSTRAINT `locationID`
+    FOREIGN KEY (`location_id`)
+    REFERENCES `db_final`.`location` (`location_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `publisherID`
+    FOREIGN KEY (`publisher_id`)
+    REFERENCES `db_final`.`publisher` (`publisher_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `author_id`
+    FOREIGN KEY (`author_id`)
+    REFERENCES `db_final`.`author` (`author_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `category_id`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `db_final`.`category` (`category_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+CREATE TABLE `db_final`.`item` (
+  `item_id` VARCHAR(100) NOT NULL,
+  `order_id` VARCHAR(100) NOT NULL,
+  `quantity` INT NOT NULL,
+  `book_id` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`item_id`),
+  INDEX `orderID_idx` (`order_id` ASC) VISIBLE,
+  INDEX `book_id_idx` (`book_id` ASC) VISIBLE,
+  CONSTRAINT `orderID`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `db_final`.`order` (`order_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `book_id`
+    FOREIGN KEY (`book_id`)
+    REFERENCES `db_final`.`book` (`book_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+               
 INSERT  INTO `db_final`.`customer` (
 `customer_id`, 
 `customer_name`, 
