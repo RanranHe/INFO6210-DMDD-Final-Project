@@ -47,7 +47,20 @@ CREATE TABLE `db_final`.`order` (
     REFERENCES `db_final`.`employee` (`employee_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-  
+
+CREATE TABLE `db_final`.`period` (
+  `period_id` INT NOT NULL,
+  `timesheet_id` VARCHAR(100) NOT NULL,
+  `start_time` DATE NOT NULL,
+  `end_time` DATE NOT NULL,
+  PRIMARY KEY (`period_id`),
+  INDEX `timesheetID_idx` (`timesheet_id` ASC) VISIBLE,
+  CONSTRAINT `sheetID`
+    FOREIGN KEY (`timesheet_id`)
+    REFERENCES `db_final`.`timesheet` (`timesheet_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);
+               
 INSERT  INTO `db_final`.`customer` (
 `customer_id`, 
 `customer_name`, 
