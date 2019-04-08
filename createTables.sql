@@ -22,7 +22,7 @@ CREATE TABLE `db_final`.`employee` (
   `salary` DECIMAL(10,1) NOT NULL,
   `timesheet_id` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`employee_id`),
-  INDEX `timesheet_id_idx` (`timesheet_id` ASC) VISIBLE,
+  INDEX `timesheet_id_idx` (`timesheet_id` ASC),
   CONSTRAINT `timesheetID`
     FOREIGN KEY (`timesheet_id`)
     REFERENCES `db_final`.`timesheet` (`timesheet_id`)
@@ -35,8 +35,8 @@ CREATE TABLE `db_final`.`order` (
   `order_date` DATE NOT NULL,
   `employee_id` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`order_id`),
-  INDEX `customerId_idx` (`customer_id` ASC) VISIBLE,
-  INDEX `employeeID_idx` (`employee_id` ASC) VISIBLE,
+  INDEX `customerId_idx` (`customer_id` ASC),
+  INDEX `employeeID_idx` (`employee_id` ASC),
   CONSTRAINT `customerID`
     FOREIGN KEY (`customer_id`)
     REFERENCES `db_final`.`customer` (`customer_id`)
@@ -54,7 +54,7 @@ CREATE TABLE `db_final`.`period` (
   `start_time` DATE NOT NULL,
   `end_time` DATE NOT NULL,
   PRIMARY KEY (`period_id`),
-  INDEX `timesheetID_idx` (`timesheet_id` ASC) VISIBLE,
+  INDEX `timesheetID_idx` (`timesheet_id` ASC),
   CONSTRAINT `sheetID`
     FOREIGN KEY (`timesheet_id`)
     REFERENCES `db_final`.`timesheet` (`timesheet_id`)
