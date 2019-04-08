@@ -28,6 +28,25 @@ CREATE TABLE `db_final`.`employee` (
     REFERENCES `db_final`.`timesheet` (`timesheet_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+              
+CREATE TABLE `db_final`.`order` (
+  `order_id` VARCHAR(100) NOT NULL,
+  `customer_id` VARCHAR(100) NOT NULL,
+  `order_date` DATE NOT NULL,
+  `employee_id` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`order_id`),
+  INDEX `customerId_idx` (`customer_id` ASC) VISIBLE,
+  INDEX `employeeID_idx` (`employee_id` ASC) VISIBLE,
+  CONSTRAINT `customerID`
+    FOREIGN KEY (`customer_id`)
+    REFERENCES `db_final`.`customer` (`customer_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `employeeID`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `db_final`.`employee` (`employee_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
   
 INSERT  INTO `db_final`.`customer` (
 `customer_id`, 
