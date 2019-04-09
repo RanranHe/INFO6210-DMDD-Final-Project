@@ -14,6 +14,39 @@ END$$
 
 DELIMITER ;
 
+/* Given an order id, update the stock of books */
+DROP procedure IF EXISTS `update_stock_while_placing_order`;
+
+DELIMITER $$
+USE `db_final`$$
+CREATE PROCEDUR `update_stock_while_placing_order`(IN orderID VARCHAR(100))
+BEGIN
+    DECLARE num INT;
+    DECLARE qu INT;
+    DECLARE i INT DEFAULT 0;
+    DECLARE b_id VARCHAR(100);
+    
+    SELECT COUNT(*) INTO num
+    FROM item
+    WHERE item.order_id=orderID;
+    
+    WHILE num>i DO
+        SELECT item.quantity, item.book_id INTO qu, b_id
+        FROM item
+        WHERE item.order_id=orderID
+        ORDER BY item.order_id
+        LIMIT i, 1;
+        
+        UPDATE book
+        SET book.stock=book.stock-qu
+        WHERE book.book_id=b_id;
+												  
+        SET i=i+1;
+    END WHILE;
+END$$
+
+DELIMITER ;
+
 /* Given a book id, return location, author, publisher, category details */
 DROP procedure IF EXISTS `check_book_details`;
 
