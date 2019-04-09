@@ -19,32 +19,31 @@ DROP procedure IF EXISTS `update_stock_while_placing_order`;
 
 DELIMITER $$
 USE `db_final`$$
-CREATE PROCEDUR `update_stock_while_placing_order`(IN orderID VARCHAR(100))
+CREATE PROCEDURE `update_stock_while_placing_order`(IN orderID VARCHAR(100), OUT book_updated_count INT)
 BEGIN
     DECLARE num INT;
-    DECLARE qu INT;
-    DECLARE i INT DEFAULT 0;
+    DECLARE qu INT;  
     DECLARE b_id VARCHAR(100);
+    SET book_updated_count=0;
     
     SELECT COUNT(*) INTO num
     FROM item
     WHERE item.order_id=orderID;
     
-    WHILE num>i DO
+    WHILE num>book_updated_count  DO
         SELECT item.quantity, item.book_id INTO qu, b_id
         FROM item
         WHERE item.order_id=orderID
         ORDER BY item.order_id
-        LIMIT i, 1;
+        LIMIT book_updated_count, 1;
         
         UPDATE book
         SET book.stock=book.stock-qu
         WHERE book.book_id=b_id;
-												  
-        SET i=i+1;
+        
+        SET book_updated_count=book_updated_count+1;
     END WHILE;
 END$$
-
 DELIMITER ;
 
 /* Given a book id, return location, author, publisher, category details */
