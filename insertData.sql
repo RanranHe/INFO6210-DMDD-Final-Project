@@ -78,8 +78,24 @@ VALUES ('cf4e3491-cfcc-4dd0-bef1-1e7ff602e5c7', '8', '14221076-619e-4bc9-b2f7-3e
 
 INSERT INTO `db_final`.`book` (`book_id`, `price`, `location_id`, `stock`, `book_name`, 
 `publisher_id`, `author_id`, `publisher_date`, `description`, `category_id`) 
-VALUES ('63534709-a711-44a9-8baa-6574a2e4304e', '8', 'e487f555-dfdf-4c7f-b4e8-a59fb6524fc5', '100', 
+VALUES ('63534709-a711-44a9-8baa-6574a2e4304e', '10', 'e487f555-dfdf-4c7f-b4e8-a59fb6524fc5', '100', 
 '12 Amazing Tricks', 'dd4e9d89-cf5a-4564-8b0f-2a0489c5fa5e', '2a977f4b-abb6-4cf3-a578-67f8e840ae60', 
 '2016-11-10', 'Kids will love amazing their friends with these twelve magic tricks that use items found around the house.',
 '8522ad28-9718-47e1-8387-9597e2411e7b');
+
+/* -------------------------------------------Order Table--------------------------------------------------*/
+INSERT INTO `db_final`.`order` (`order_id`, `customer_id`, `order_date`, `employee_id`)
+VALUES ('e8d546df-d823-41bc-8ec2-1f232d879c35', '7f11187d-6488-4a87-9f36-72e3ec483552', 
+'2019-1-21', '23867168-4808-4a69-a944-a7024d671794');
+
+INSERT INTO `db_final`.`order` (`order_id`, `customer_id`, `order_date`, `employee_id`)
+VALUES ('87fd8c6c-cf0d-42b4-81c8-161ab7876438', '7f11187d-6488-4a87-9f36-72e3ec483552', 
+'2019-1-21', '295375e3-4923-42b0-b09d-b8d3aa146ff6');
+
+/* -------------------------------------------Item Table--------------------------------------------------*/
+INSERT INTO `db_final`.`item` (`item_id`, `order_id`, `quantity`, `book_id`) 
+VALUES ('2f4a4e0d-a47a-4dc1-a905-554b4c399bc4', 'e8d546df-d823-41bc-8ec2-1f232d879c35', '1', '63534709-a711-44a9-8baa-6574a2e4304e');
+
+INSERT INTO `db_final`.`item` (`item_id`, `order_id`, `quantity`, `book_id`) 
+VALUES ('066fa2f7-8fd5-4126-9dac-64ed9f404724', 'e8d546df-d823-41bc-8ec2-1f232d879c35', '3', 'cf4e3491-cfcc-4dd0-bef1-1e7ff602e5c7');
 
