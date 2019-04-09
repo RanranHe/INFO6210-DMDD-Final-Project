@@ -54,21 +54,13 @@ USE `db_final`$$
 CREATE PROCEDURE `check_book_details`(IN id VARCHAR(100), OUT shelf INT, OUT b_row INT, OUT b_column INT, 
 OUT p_name VARCHAR(45), OUT p_country VARCHAR(45), OUT p_city VARCHAR(45), OUT category VARCHAR(45), OUT author VARCHAR(45))
 BEGIN
-    SELECT location.shelf_no, location.row, location.column INTO shelf, b_row, b_column
-    FROM book INNER JOIN location
-    WHERE book.location_id=location.location_id AND book.book_id=id;
-    
-    SELECT publisher.publisher_name, publisher.country, publisher.city INTO p_name, p_country, p_city
-    FROM book INNER JOIN publisher
-    WHERE book.publisher_id=publisher.publisher_id AND book.book_id=id;
-    
-    SELECT category.category_name INTO category
-    FROM book INNER JOIN category
-    WHERE book.category_id=category.category_id AND book.book_id=id;
-    
-    SELECT author.author_name INTO author
-    FROM book INNER JOIN author
-    WHERE book.author_id=author.author_id AND book.book_id=id;
+    SELECT L.shelf_no, L.row, L.column, P.publisher_name, P.country, P.city, C.category_name, A.author_name
+    INTO shelf, b_row, b_column, p_name, p_country, p_city, category, author
+    FROM book AS B INNER JOIN location AS L ON B.location_id=L.location_id
+    INNER JOIN publisher AS P ON B.publisher_id=P.publisher_id
+    INNER JOIN category AS C ON B.category_id=C.category_id
+    INNER JOIN author AS A ON B.author_id=A.author_id
+    WHERE B.book_id=id;
 END$$
 
 DELIMITER ;
