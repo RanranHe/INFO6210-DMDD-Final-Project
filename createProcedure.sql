@@ -15,19 +15,42 @@ END$$
 DELIMITER ;
 
 /* Given a book id, return location details */
-DROP procedure IF EXISTS `check_book_location`;
+USE `db_final`;
+DROP procedure IF EXISTS `check_book_details`;
 
 DELIMITER $$
 USE `db_final`$$
-CREATE PROCEDURE `check_book_location` (IN id VARCHAR(100))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `check_book_details`(IN id VARCHAR(100))
 BEGIN
-	SELECT location.shelf_no, location.row, location.column
-	FROM book INNER JOIN location
-	WHERE book.location_id=location.location_id AND book.book_id=id;
+    DECLARE shelf INT DEFAULT 0;
+    DECLARE b_row INT;
+    DECLARE b_column INT;
+    DECLARE p_name VARCHAR(45);
+    DECLARE p_country VARCHAR(45);
+    DECLARE p_city VARCHAR(45);
+    DECLARE category VARCHAR(45);
+    DECLARE author VARCHAR(45);
+									       
+    SELECT location.shelf_no, location.row, location.column INTO shelf, b_row, b_column
+    FROM book INNER JOIN location
+    WHERE book.location_id=location.location_id AND book.book_id=id;
+    
+    SELECT publisher.publisher_name, publisher.country, publisher.city INTO p_name, p_country, p_city
+    FROM book INNER JOIN publisher
+    WHERE book.publisher_id=publisher.publisher_id AND book.book_id=id;
+    
+    SELECT category.category_name INTO category
+    FROM book INNER JOIN category
+    WHERE book.category_id=category.category_id AND book.book_id=id;
+    
+    SELECT author.author_name INTO author
+    FROM book INNER JOIN author
+    WHERE book.author_id=author.author_id AND book.book_id=id;
+    
+    SELECT shelf, b_row, b_column, p_name, p_country, p_city, category, author;
 END$$
 
 DELIMITER ;
-                                                      
                                                       
 /* Given order id, return total price and total item count */
 DROP procedure IF EXISTS `calculus_total_price`;
