@@ -141,14 +141,4 @@ CREATE TABLE `db_final`.`item` (
     REFERENCES `db_final`.`book` (`book_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-               
-INSERT  INTO `db_final`.`customer` (
-`customer_id`, 
-`customer_name`, 
-`customer_phone`, 
-`customer_email`) 
-VALUES (
-'8ee7b542-c493-404e-bdd4-19f2a4267708',
- 'Ankit Acciaio',
- '2615102674',
- 'Ankit@gmail.com');
+              
