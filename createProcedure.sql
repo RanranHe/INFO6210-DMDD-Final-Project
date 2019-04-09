@@ -13,3 +13,19 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+/* Given a book id, return location details */
+DROP procedure IF EXISTS `check_book_location`;
+
+DELIMITER $$
+USE `db_final`$$
+CREATE PROCEDURE `check_book_location` (IN id VARCHAR(100))
+BEGIN
+	SELECT location.shelf_no, location.row, location.column
+	FROM book INNER JOIN location
+	WHERE book.location_id=location.location_id AND book.book_id=id;
+END$$
+
+DELIMITER ;
+                                                      
+                                                      
