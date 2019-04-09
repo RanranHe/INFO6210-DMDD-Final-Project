@@ -86,11 +86,11 @@ VALUES ('63534709-a711-44a9-8baa-6574a2e4304e', '10', 'e487f555-dfdf-4c7f-b4e8-a
 /* -------------------------------------------Order Table--------------------------------------------------*/
 INSERT INTO `db_final`.`order` (`order_id`, `customer_id`, `order_date`, `employee_id`)
 VALUES ('e8d546df-d823-41bc-8ec2-1f232d879c35', '7f11187d-6488-4a87-9f36-72e3ec483552', 
-'2019-1-21', '23867168-4808-4a69-a944-a7024d671794');
+'2019-01-21', '23867168-4808-4a69-a944-a7024d671794');
 
 INSERT INTO `db_final`.`order` (`order_id`, `customer_id`, `order_date`, `employee_id`)
 VALUES ('87fd8c6c-cf0d-42b4-81c8-161ab7876438', '7f11187d-6488-4a87-9f36-72e3ec483552', 
-'2019-1-21', '295375e3-4923-42b0-b09d-b8d3aa146ff6');
+'2019-01-21', '295375e3-4923-42b0-b09d-b8d3aa146ff6');
 
 /* -------------------------------------------Item Table--------------------------------------------------*/
 INSERT INTO `db_final`.`item` (`item_id`, `order_id`, `quantity`, `book_id`) 
