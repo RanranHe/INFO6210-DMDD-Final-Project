@@ -49,7 +49,7 @@ CREATE TABLE `db_final`.`order` (
     ON UPDATE NO ACTION);
 
 CREATE TABLE `db_final`.`period` (
-  `period_id` INT NOT NULL,
+  `period_id` VARCHAR(100) NOT NULL,
   `timesheet_id` VARCHAR(100) NOT NULL,
   `start_time` DATE NOT NULL,
   `end_time` DATE NOT NULL,
