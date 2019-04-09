@@ -14,7 +14,7 @@ END$$
 
 DELIMITER ;
 
-/* Given a book id, return location details */
+/* Given a book id, return location, author, publisher, category details */
 USE `db_final`;
 DROP procedure IF EXISTS `check_book_details`;
 
