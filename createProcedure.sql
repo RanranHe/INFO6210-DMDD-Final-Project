@@ -89,14 +89,14 @@ DROP procedure IF EXISTS `calculus_total_price`;
 
 DELIMITER $$
 USE `db_final`$$
-CREATE PROCEDURE `calculus_total_price`(IN id VARCHAR(100))
+CREATE PROCEDURE `calculus_total_price`(IN id VARCHAR(100), OUT total DECIMAL(10, 1), OUT item_count INT)
 BEGIN
     DECLARE num INT;
     DECLARE i INT DEFAULT 0;
     DECLARE qua INT;
     DECLARE pri DECIMAL(10, 1);
-    DECLARE total DECIMAL(10, 1) DEFAULT 0;
-    DECLARE item_count INT DEFAULT 0;
+    SET total=0;
+    SET item_count=0;
     
     SELECT COUNT(*) INTO num
     FROM item 
@@ -112,8 +112,6 @@ BEGIN
         SET item_count=item_count+qua;
         SET i=i+1;
     END WHILE;
-    
-    SELECT item_count, total;
 END$$
 
 DELIMITER ;
