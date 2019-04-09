@@ -15,14 +15,13 @@ END$$
 DELIMITER ;
 
 /* Given a book id, return location, author, publisher, category details */
-USE `db_final`;
 DROP procedure IF EXISTS `check_book_details`;
 
 DELIMITER $$
 USE `db_final`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `check_book_details`(IN id VARCHAR(100))
 BEGIN
-    DECLARE shelf INT DEFAULT 0;
+    DECLARE shelf INT;
     DECLARE b_row INT;
     DECLARE b_column INT;
     DECLARE p_name VARCHAR(45);
