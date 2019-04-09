@@ -25,6 +25,16 @@ VALUES ('850cbdbd-efa9-4259-8072-a8f1a0d67a40', 'History');
 INSERT INTO `db_final`.`category` (`category_id`, `category_name`) 
 VALUES ('2616c440-509d-43c3-ad03-78571c41a695', 'Cooking');
 
+/* -------------------------------------------Publisher Table--------------------------------------------------*/
+INSERT INTO `db_final`.`publisher` (`publisher_id`, `publisher_name`, `country`, `city`) 
+VALUES ('b38fa766-0ded-4fc9-a038-1cbbf55c1f62', 'American Press Inc', 'US', 'Boston');
+
+INSERT INTO `db_final`.`publisher` (`publisher_id`, `publisher_name`, `country`, `city`) 
+VALUES ('ff2e7858-8360-430f-a26a-16538fd5af6d', 'Harvard Common Press', 'US', 'Boston');
+
+INSERT INTO `db_final`.`publisher` (`publisher_id`, `publisher_name`, `country`, `city`) 
+VALUES ('dd4e9d89-cf5a-4564-8b0f-2a0489c5fa5e', 'National Braille Press', 'US', 'Boston');
+
 /* -------------------------------------------Timesheet Table--------------------------------------------------*/
 INSERT INTO `db_final`.`timesheet` (`timesheet_id`, `year`, `month`) 
 VALUES ('99a60782-b681-4e84-b8a8-2b0a98c8fa6f', '2019', '1');
