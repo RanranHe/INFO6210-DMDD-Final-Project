@@ -98,10 +98,10 @@ CREATE TABLE `db_final`.`book` (
   `description` VARCHAR(256) NULL,
   `category_id` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`book_id`),
-  INDEX `locationID_idx` (`location_id` ASC) VISIBLE,
-  INDEX `publisherID_idx` (`publisher_id` ASC) VISIBLE,
-  INDEX `author_id_idx` (`author_id` ASC) VISIBLE,
-  INDEX `category_id_idx` (`category_id` ASC) VISIBLE,
+  INDEX `locationID_idx` (`location_id` ASC),
+  INDEX `publisherID_idx` (`publisher_id` ASC),
+  INDEX `author_id_idx` (`author_id` ASC),
+  INDEX `category_id_idx` (`category_id` ASC),
   CONSTRAINT `locationID`
     FOREIGN KEY (`location_id`)
     REFERENCES `db_final`.`location` (`location_id`)
@@ -129,8 +129,8 @@ CREATE TABLE `db_final`.`item` (
   `quantity` INT NOT NULL,
   `book_id` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`item_id`),
-  INDEX `orderID_idx` (`order_id` ASC) VISIBLE,
-  INDEX `book_id_idx` (`book_id` ASC) VISIBLE,
+  INDEX `orderID_idx` (`order_id` ASC),
+  INDEX `book_id_idx` (`book_id` ASC),
   CONSTRAINT `orderID`
     FOREIGN KEY (`order_id`)
     REFERENCES `db_final`.`order` (`order_id`)
