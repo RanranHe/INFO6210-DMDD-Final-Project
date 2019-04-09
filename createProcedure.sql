@@ -51,17 +51,9 @@ DROP procedure IF EXISTS `check_book_details`;
 
 DELIMITER $$
 USE `db_final`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `check_book_details`(IN id VARCHAR(100))
+CREATE PROCEDURE `check_book_details`(IN id VARCHAR(100), OUT shelf INT, OUT b_row INT, OUT b_column INT, 
+OUT p_name VARCHAR(45), OUT p_country VARCHAR(45), OUT p_city VARCHAR(45), OUT category VARCHAR(45), OUT author VARCHAR(45))
 BEGIN
-    DECLARE shelf INT;
-    DECLARE b_row INT;
-    DECLARE b_column INT;
-    DECLARE p_name VARCHAR(45);
-    DECLARE p_country VARCHAR(45);
-    DECLARE p_city VARCHAR(45);
-    DECLARE category VARCHAR(45);
-    DECLARE author VARCHAR(45);
-									       
     SELECT location.shelf_no, location.row, location.column INTO shelf, b_row, b_column
     FROM book INNER JOIN location
     WHERE book.location_id=location.location_id AND book.book_id=id;
@@ -77,8 +69,6 @@ BEGIN
     SELECT author.author_name INTO author
     FROM book INNER JOIN author
     WHERE book.author_id=author.author_id AND book.book_id=id;
-    
-    SELECT shelf, b_row, b_column, p_name, p_country, p_city, category, author;
 END$$
 
 DELIMITER ;
