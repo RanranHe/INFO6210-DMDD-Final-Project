@@ -1,4 +1,4 @@
-/* A Trigger for Period Table
+/* --------- Trigger for Period Table ---------
    Situations Preventing Insert:
    1. End Date earlier than Start Date
    2. Period Year/Month doesn't match correspoding timesheet YEAR/MONTH
@@ -51,6 +51,26 @@ BEGIN
 		END IF;
         SET i=i+1;
     END WHILE;
+END$$
+
+DELIMITER ;
+
+/* --------- Trigger for Timesheet Table ---------
+   Situations Preventing Insert:
+   1. Year >= current year and month > current month
+*/
+DELIMITER $$
+USE `db_final`$$
+DROP TRIGGER IF EXISTS `db_final`.`timesheet_check`$$
+CREATE TRIGGER  `db_final`.`timesheet_check` BEFORE INSERT ON `timesheet` FOR EACH ROW 
+BEGIN
+	DECLARE y INT;
+    DECLARE m INT;
+    SET y=YEAROF(CURDATE());
+    SET m=MONTHOF(CURDATE());
+    
+    IF NEW.year>=y AND NEW.month>m THEN signal sqlstate '45000' SET message_text = 'Timesheet cannot be later than current month'; END IF;
+    
 END$$
 
 DELIMITER ;
