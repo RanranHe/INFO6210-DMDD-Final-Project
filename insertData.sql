@@ -55,6 +55,19 @@ VALUES ('7250bcb9-cf7a-4aac-bef7-cee76c731ac9', '2019', '1');
 INSERT INTO `db_final`.`timesheet` (`timesheet_id`, `year`, `month`) 
 VALUES ('38ed6367-7377-4b12-a1b0-7dd9893cb00d', '2019', '1');
 
+/* -------------------------------------------Period Table--------------------------------------------------*/
+INSERT INTO `db_final`.`period` (`period_id`, `timesheet_id`, `start_time`, `end_time`) 
+VALUES ('13048022-2035-4c84-9cb7-ada1167728f2', '38ed6367-7377-4b12-a1b0-7dd9893cb00d', '2019-01-26', '2019-01-27');
+
+INSERT INTO `db_final`.`period` (`period_id`, `timesheet_id`, `start_time`, `end_time`) 
+VALUES ('5ecc265c-4786-4294-b9f4-8afd42490e95', '38ed6367-7377-4b12-a1b0-7dd9893cb00d', '2019-01-14', '2019-01-18');
+
+INSERT INTO `db_final`.`period` (`period_id`, `timesheet_id`, `start_time`, `end_time`) 
+VALUES ('816f8b58-b4ae-4df0-9db1-10a653a7fb25', '38ed6367-7377-4b12-a1b0-7dd9893cb00d', '2019-01-10', '2019-01-12');
+
+INSERT INTO `db_final`.`period` (`period_id`, `timesheet_id`, `start_time`, `end_time`) 
+VALUES ('ef4ad436-6d63-417e-96e1-de6d67311220', '38ed6367-7377-4b12-a1b0-7dd9893cb00d', '2019-01-21', '2019-01-24');
+
 /* -------------------------------------------Employee Table--------------------------------------------------*/
 INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`, `timesheet_id`) 
 VALUES ('295375e3-4923-42b0-b09d-b8d3aa146ff6', 'Roman Kunz', '3542051168', '5000', 
