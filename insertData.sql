@@ -5,6 +5,9 @@ VALUES ('8ee7b542-c493-404e-bdd4-19f2a4267708',  'Ankit Acciaio', '2615102674', 
 INSERT  INTO `db_final`.`customer` (`customer_id`, `customer_name`, `customer_phone`, `customer_email`) 
 VALUES ('7f11187d-6488-4a87-9f36-72e3ec483552',  'Ethan Brioschi', '8472951564',  'Ethan@gmail.com');
 
+INSERT  INTO `db_final`.`customer` (`customer_id`, `customer_name`, `customer_phone`, `customer_email`) 
+VALUES ('49ba69e4-77ee-4d39-9c7e-ae17d6963cad',  'Miran Yates', '2025550149',  'Miran@gmail.com');
+
 /* -------------------------------------------Author Table--------------------------------------------------*/
 INSERT INTO `db_final`.`author` (`author_id`, `author_name`, `date_of_birth`) 
 VALUES ('2a977f4b-abb6-4cf3-a578-67f8e840ae60', 'Sakshi Zunino', '1967-12-12');
@@ -115,3 +118,5 @@ VALUES ('2f4a4e0d-a47a-4dc1-a905-554b4c399bc4', 'e8d546df-d823-41bc-8ec2-1f232d8
 INSERT INTO `db_final`.`item` (`item_id`, `order_id`, `quantity`, `book_id`) 
 VALUES ('066fa2f7-8fd5-4126-9dac-64ed9f404724', 'e8d546df-d823-41bc-8ec2-1f232d879c35', '3', 'cf4e3491-cfcc-4dd0-bef1-1e7ff602e5c7');
 
+INSERT INTO `db_final`.`item` (`item_id`, `order_id`, `quantity`, `book_id`) 
+VALUES ('749ed8e1-f48b-4087-bd59-b80e293c6222', '87fd8c6c-cf0d-42b4-81c8-161ab7876438', '5', 'cf4e3491-cfcc-4dd0-bef1-1e7ff602e5c7');
