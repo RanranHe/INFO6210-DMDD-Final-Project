@@ -43,6 +43,7 @@ BEGIN
         
         SET book_updated_count=book_updated_count+1;
     END WHILE;
+    SELECT book_updated_count;
 END$$
 DELIMITER ;
 
@@ -93,7 +94,7 @@ BEGIN
         SET item_count=item_count+qua;
         SET i=i+1;
     END WHILE;
+    SELECT total, item_count;
 END$$
 
 DELIMITER ;
-
