@@ -18,3 +18,7 @@ CREATE OR REPLAC VIEW `order_view` AS
 SELECT O.order_id, C.customer_name, O.order_date, E.employee_name
 FROM `order` AS O INNER JOIN `employee` AS E ON O.employee_id=E.employee_id
 INNER JOIN `customer` AS C ON O.customer_id=C.customer_id;
+
+CREATE  OR REPLACE VIEW `order_detials_view` AS
+SELECT I.order_id, I.quantity, B.book_name
+FROM `item` AS I INNER JOIN `book` AS B ON I.book_id=B.book_id;
