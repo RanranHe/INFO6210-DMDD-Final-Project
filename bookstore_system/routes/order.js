@@ -4,5 +4,6 @@ const order = require('../server/order_server');
 
 router.get('/order/total/:orderId', order.getTotalPrice);
 router.get('/orders', order.getAllOrders);
+router.get('/order/details/:orderId', order.checkOrderId, order.getOrderDetails);
 
 module.exports = router;
