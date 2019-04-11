@@ -87,6 +87,10 @@ INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_pho
 VALUES ('23867168-4808-4a69-a944-a7024d671794', 'Antonia Faure', 
 '6626957215', '4000', '38ed6367-7377-4b12-a1b0-7dd9893cb00d');
 
+INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`, `timesheet_id`) 
+VALUES ('f577eb4d-4dba-4d8a-acf1-502d8fc25e99', 'Marijn Martel', 
+'2025550173', '3000', '2939347a-3225-46c0-9993-34c45658b000');
+
 /* -------------------------------------------Book Table--------------------------------------------------*/
 INSERT INTO `db_final`.`book` (`book_id`, `price`, `location_id`, `stock`, `book_name`, 
 `publisher_id`, `author_id`, `publisher_date`, `description`, `category_id`) 
@@ -101,6 +105,13 @@ VALUES ('63534709-a711-44a9-8baa-6574a2e4304e', '10', 'e487f555-dfdf-4c7f-b4e8-a
 '12 Amazing Tricks', 'dd4e9d89-cf5a-4564-8b0f-2a0489c5fa5e', '2a977f4b-abb6-4cf3-a578-67f8e840ae60', 
 '2016-11-10', 'Kids will love amazing their friends with these twelve magic tricks that use items found around the house.',
 '8522ad28-9718-47e1-8387-9597e2411e7b');
+
+INSERT INTO `db_final`.`book` (`book_id`, `price`, `location_id`, `stock`, `book_name`, 
+`publisher_id`, `author_id`, `publisher_date`, `description`, `category_id`) 
+VALUES ('94e3051a-796e-4449-b15d-a4a32bb71b40', '15', '14221076-619e-4bc9-b2f7-3eb060541bf4', '100', 
+"The Bread Lover's Bread Machine Cookbook", 'ff2e7858-8360-430f-a26a-16538fd5af6d', '0118be2d-e9ef-4e87-9a74-b3b894cb9cfa', 
+'2010-07-23', "A Master Baker's 300 Favorite Recipes for Perfect-Every-Time Bread-From Every Kind of Machine",
+'2616c440-509d-43c3-ad03-78571c41a695');
 
 /* -------------------------------------------Order Table--------------------------------------------------*/
 INSERT INTO `db_final`.`order` (`order_id`, `customer_id`, `order_date`, `employee_id`)
