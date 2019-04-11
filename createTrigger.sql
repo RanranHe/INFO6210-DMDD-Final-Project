@@ -147,7 +147,7 @@ BEGIN
     IF cur_stock<NEW.quantity THEN signal sqlstate '45000' SET message_text = 'There is not enough stock for this book'; END IF;
     
     SELECT COUNT(*) INTO num 
-    FROM item WHERE order_id=NEW.order_id AND item_id=NEW.item_id;
+    FROM item WHERE order_id=NEW.order_id AND book_id=NEW.book_id;
     
     IF num<>0 THEN
 	signal sqlstate '45000' SET message_text = 'The book is already included in this order, please update the quantity instead.';
