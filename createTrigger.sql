@@ -69,7 +69,7 @@ BEGIN
     SET y=YEAR(CURDATE());
     SET m=MONTH(CURDATE());
     
-    IF NEW.year>=y AND NEW.month>m THEN signal sqlstate '45000' SET message_text = 'Timesheet cannot be later than current month'; END IF;
+    IF NEW.year>y OR (NEW.year=y AND NEW.month>m) THEN signal sqlstate '45000' SET message_text = 'Timesheet cannot be later than current month'; END IF;
     
 END$$
 
