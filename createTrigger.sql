@@ -131,17 +131,27 @@ DELIMITER ;
    Situations Preventing Insert:
    1. quantity can't be less than 1
    2. quantity can't exceed the current stock
+   3. the book already exists in the order
 */	
 DELIMITER $$
 USE `db_final`$$
 DROP TRIGGER IF EXISTS `db_final`.`quantity_check`$$
 CREATE TRIGGER  `db_final`.`quantity_check` BEFORE INSERT ON `item` FOR EACH ROW 
 BEGIN
+    DECLARE cur_stock INT;
     DECLARE num INT;
+    
     IF NEW.quantity<1 THEN signal sqlstate '45000' SET message_text = 'Quantity should be more than 0'; END IF;
     
-    SELECT book.stock INTO num FROM book WHERE book.book_id=NEW.book_id;
-    IF num<NEW.quantity THEN signal sqlstate '45000' SET message_text = 'There is not enough stock for this book'; END IF;
+    SELECT book.stock INTO cur_stock FROM book WHERE book.book_id=NEW.book_id;
+    IF cur_stock<NEW.quantity THEN signal sqlstate '45000' SET message_text = 'There is not enough stock for this book'; END IF;
+    
+    SELECT COUNT(*) INTO num 
+    FROM item WHERE order_id=NEW.order_id AND item_id=NEW.item_id;
+    
+    IF num<>0 THEN
+	signal sqlstate '45000' SET message_text = 'The book is already included in this order, please update the quantity instead.';
+    END IF;
 END$$
 
 DELIMITER ;
