@@ -98,3 +98,40 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+                                                                                                                        
+/* Add item: if book already exists, then update quantity.
+   Otherwise, create new item */                                                                                                                        
+DROP procedure IF EXISTS `add_item`;
+
+DELIMITER $$
+USE `db_final`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_item`(IN itemId VARCHAR(100), IN orderId VARCHAR(100), IN qua INT, IN bookId VARCHAR(100),
+							OUT new_itemId VARCHAR(100), OUT new_orderId VARCHAR(100), OUT new_qua INT, OUT new_bookId VARCHAR(100))
+BEGIN
+	DECLARE num INT;
+    DECLARE i INT DEFAULT 0;
+    DECLARE cur_qua INT;
+    
+	SELECT COUNT(*) INTO num 
+    FROM item WHERE order_id=orderId AND book_id=bookId;
+    
+	IF num=0 THEN
+		INSERT INTO item (`item_id`, `order_id`, `quantity`, `book_id`) 
+		VALUES (itemId, orderId, qua, bookId);
+        
+        SELECT itemId, orderId, qua, bookId INTO new_itemId, new_orderId, new_qua, new_bookId;
+	ELSE 
+		SELECT item.quantity, item.item_id INTO cur_qua, itemId FROM item 
+        WHERE order_id=orderId AND book_id=bookId;
+        
+        SET cur_qua=cur_qua+qua;
+		UPDATE item SET item.quantity=cur_qua WHERE order_id=orderId AND book_id=bookId;
+        
+        SELECT itemId, orderId, cur_qua, bookId INTO new_itemId, new_orderId, new_qua, new_bookId;
+    END IF;
+    
+    SELECT new_itemId, new_orderId, new_qua, new_bookId;
+END$$
+
+DELIMITER ;
