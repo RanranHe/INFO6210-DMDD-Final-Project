@@ -23,7 +23,7 @@ BEGIN
     DECLARE y1 INT;
     DECLARE y2 INT;
     
-	SELECT COUNT(*) INTO period_num FROM period WHERE period.timesheet_id=NEW.timesheet_id;
+    SELECT COUNT(*) INTO period_num FROM period WHERE period.timesheet_id=NEW.timesheet_id;
     
     SELECT timesheet.year, timesheet.month INTO y, m FROM timesheet WHERE timesheet.timesheet_id=NEW.timesheet_id;
     
@@ -71,6 +71,77 @@ BEGIN
     
     IF NEW.year>y OR (NEW.year=y AND NEW.month>m) THEN signal sqlstate '45000' SET message_text = 'Timesheet cannot be later than current month'; END IF;
     
+END$$
+
+DELIMITER ;
+
+/* --------- Trigger for Employee Table ---------
+   Situations Preventing Insert:
+   1. salary is less than 0
+*/
+DELIMITER $$
+USE `db_final`$$
+DROP TRIGGER IF EXISTS `db_final`.`employee_check`$$
+CREATE TRIGGER  `db_final`.`employee_check` BEFORE INSERT ON `employee` FOR EACH ROW 
+BEGIN
+	IF NEW.`salary`<0 THEN
+		SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Salary cannot be negative';
+	END IF;
+END$$
+
+DELIMITER ;
+
+/* --------- Trigger for Customer Table ---------
+   Situations Preventing Insert:
+   1. email is not in valid form
+*/
+DELIMITER $$
+USE `db_final`$$
+DROP TRIGGER IF EXISTS `db_final`.`customer_email_check`$$
+CREATE TRIGGER  `db_final`.`customer_email_check` BEFORE INSERT ON `customer` FOR EACH ROW 
+BEGIN
+    IF NEW.`customer_email` NOT LIKE '%_@%_.__%' THEN
+		SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Email is not valid';
+	END IF;
+END$$
+
+DELIMITER ;
+
+/* --------- Trigger for Book Table ---------
+   Situations Preventing Insert:
+   1. book stock can't be less than 0
+   2. book price can't be less than 0
+*/		
+DELIMITER $$
+USE `db_final`$$
+DROP TRIGGER IF EXISTS `db_final`.`book_check`$$
+CREATE TRIGGER  `db_final`.`book_check` BEFORE INSERT ON `book` FOR EACH ROW 
+BEGIN
+    IF NEW.`price`<0 THEN
+		SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Price cannot be negative';
+	END IF;
+    IF NEW.`stock`<0 THEN
+		SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Stock cannot be negative';
+	END IF;
+END$$
+
+DELIMITER ;
+
+/* --------- Trigger for Item Table ---------
+   Situations Preventing Insert:
+   1. quantity can't be less than 1
+   2. quantity can't exceed the current stock
+*/	
+DELIMITER $$
+USE `db_final`$$
+DROP TRIGGER IF EXISTS `db_final`.`quantity_check`$$
+CREATE TRIGGER  `db_final`.`quantity_check` BEFORE INSERT ON `item` FOR EACH ROW 
+BEGIN
+    DECLARE num INT;
+    IF NEW.quantity<1 THEN signal sqlstate '45000' SET message_text = 'Quantity should be more than 0'; END IF;
+    
+    SELECT book.stock INTO num FROM book WHERE book.book_id=NEW.book_id;
+    IF num<NEW.quantity THEN signal sqlstate '45000' SET message_text = 'There is not enough stock for this book'; END IF;
 END$$
 
 DELIMITER ;
