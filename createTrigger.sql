@@ -66,8 +66,8 @@ CREATE TRIGGER  `db_final`.`timesheet_check` BEFORE INSERT ON `timesheet` FOR EA
 BEGIN
 	DECLARE y INT;
     DECLARE m INT;
-    SET y=YEAROF(CURDATE());
-    SET m=MONTHOF(CURDATE());
+    SET y=YEAR(CURDATE());
+    SET m=MONTH(CURDATE());
     
     IF NEW.year>=y AND NEW.month>m THEN signal sqlstate '45000' SET message_text = 'Timesheet cannot be later than current month'; END IF;
     
