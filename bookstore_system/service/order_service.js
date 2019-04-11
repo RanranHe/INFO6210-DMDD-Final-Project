@@ -13,7 +13,7 @@ function getTotalPrice(orderId){
             let row = rows[0][0];
             if (row) {
                 console.log("Total price: " + row.total + " Total item count: " + row.item_count);
-                resolve(row.total);
+                resolve(row);
             } else {
                 console.log("NO total price");
             }
@@ -47,6 +47,20 @@ function getAllOrders() {
                 console.log("[VIEW ORDERS ERROR]: " + err);
                 throw err;
             } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function getOrderDetails(orderId) {
+    return new Promise(function (resolve) {
+        let sql = "SELECT * FROM order_details_view WHERE order_id='" + orderId+"';";
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log("[VIEW ORDERS ERROR]: " + err);
+                throw err;
+            } else {
                 console.log(result);
                 resolve(result);
             }
@@ -57,6 +71,7 @@ function getAllOrders() {
 module.exports = {
     getTotalPrice,
     checkOrderId,
-    getAllOrders
+    getAllOrders,
+    getOrderDetails
 };
 
