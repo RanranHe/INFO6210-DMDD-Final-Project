@@ -48,18 +48,31 @@ VALUES ('14221076-619e-4bc9-b2f7-3eb060541bf4', '2', '4', '3');
 INSERT INTO `db_final`.`location` (`location_id`, `shelf_no`, `row`, `column`) 
 VALUES ('ffb81aee-7d4c-49ec-a6c5-74791e685043 ', '2', '1', '1');
 
+/* -------------------------------------------Employee Table--------------------------------------------------*/
+INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`) 
+VALUES ('295375e3-4923-42b0-b09d-b8d3aa146ff6', 'Roman Kunz', '3542051168', '5000');
+
+INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`) 
+VALUES ('76f6b20e-9c24-4468-9c92-32c49dd84373', 'Nevan Ríos', '5174750581', '6000');
+
+INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`) 
+VALUES ('23867168-4808-4a69-a944-a7024d671794', 'Antonia Faure', '6783462957', '3000');
+
+INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`) 
+VALUES ('f577eb4d-4dba-4d8a-acf1-502d8fc25e99', 'Marijn Martel', '1286934728', '4000');
+
 /* -------------------------------------------Timesheet Table--------------------------------------------------*/
-INSERT INTO `db_final`.`timesheet` (`timesheet_id`, `year`, `month`) 
-VALUES ('99a60782-b681-4e84-b8a8-2b0a98c8fa6f', '2019', '1');
+INSERT INTO `db_final`.`timesheet` (`timesheet_id`, `employee_id`, `year`, `month`) 
+VALUES ('99a60782-b681-4e84-b8a8-2b0a98c8fa6f', '295375e3-4923-42b0-b09d-b8d3aa146ff6', '2019', '1');
 
-INSERT INTO `db_final`.`timesheet` (`timesheet_id`, `year`, `month`) 
-VALUES ('7250bcb9-cf7a-4aac-bef7-cee76c731ac9', '2019', '1');
+INSERT INTO `db_final`.`timesheet` (`timesheet_id`, `employee_id`, `year`, `month`) 
+VALUES ('7250bcb9-cf7a-4aac-bef7-cee76c731ac9', 'f577eb4d-4dba-4d8a-acf1-502d8fc25e99', '2019', '1');
 
-INSERT INTO `db_final`.`timesheet` (`timesheet_id`, `year`, `month`) 
-VALUES ('38ed6367-7377-4b12-a1b0-7dd9893cb00d', '2019', '1');
+INSERT INTO `db_final`.`timesheet` (`timesheet_id`, `employee_id`, `year`, `month`) 
+VALUES ('38ed6367-7377-4b12-a1b0-7dd9893cb00d', '23867168-4808-4a69-a944-a7024d671794', '2019', '1');
 
-INSERT INTO `db_final`.`timesheet` (`timesheet_id`, `year`, `month`) 
-VALUES ('2939347a-3225-46c0-9993-34c45658b000', '2019', '4');
+INSERT INTO `db_final`.`timesheet` (`timesheet_id`, `employee_id`, `year`, `month`) 
+VALUES ('2939347a-3225-46c0-9993-34c45658b000', '295375e3-4923-42b0-b09d-b8d3aa146ff6', '2019', '4');
 
 /* -------------------------------------------Period Table--------------------------------------------------*/
 INSERT INTO `db_final`.`period` (`period_id`, `timesheet_id`, `start_time`, `end_time`) 
@@ -73,23 +86,6 @@ VALUES ('816f8b58-b4ae-4df0-9db1-10a653a7fb25', '38ed6367-7377-4b12-a1b0-7dd9893
 
 INSERT INTO `db_final`.`period` (`period_id`, `timesheet_id`, `start_time`, `end_time`) 
 VALUES ('ef4ad436-6d63-417e-96e1-de6d67311220', '38ed6367-7377-4b12-a1b0-7dd9893cb00d', '2019-01-21', '2019-01-24');
-
-/* -------------------------------------------Employee Table--------------------------------------------------*/
-INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`, `timesheet_id`) 
-VALUES ('295375e3-4923-42b0-b09d-b8d3aa146ff6', 'Roman Kunz', '3542051168', '5000', 
-'99a60782-b681-4e84-b8a8-2b0a98c8fa6f');
-
-INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`, `timesheet_id`) 
-VALUES ('76f6b20e-9c24-4468-9c92-32c49dd84373', 'Nevan Ríos', '5174750581', '6000',
-'7250bcb9-cf7a-4aac-bef7-cee76c731ac9');
-
-INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`, `timesheet_id`) 
-VALUES ('23867168-4808-4a69-a944-a7024d671794', 'Antonia Faure', 
-'6626957215', '4000', '38ed6367-7377-4b12-a1b0-7dd9893cb00d');
-
-INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`, `timesheet_id`) 
-VALUES ('f577eb4d-4dba-4d8a-acf1-502d8fc25e99', 'Marijn Martel', 
-'2025550173', '3000', '2939347a-3225-46c0-9993-34c45658b000');
 
 /* -------------------------------------------Book Table--------------------------------------------------*/
 INSERT INTO `db_final`.`book` (`book_id`, `price`, `location_id`, `stock`, `book_name`, 
