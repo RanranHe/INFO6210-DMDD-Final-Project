@@ -1,6 +1,13 @@
 const categoryService = require('../service/category_service');
 const uuid = require('uuid/v1');
 
+function getAllCategories(req, res) {
+    categoryService.getAllCategories()
+        .then(function (data) {
+            res.status(200).send({"categories": data});
+        })
+}
+
 function createCategory(req, res) {
     const data = req.body;
     const id = uuid();
@@ -71,6 +78,7 @@ function updateCategory(req, res) {
 }
 
 module.exports = {
+    getAllCategories,
     createCategory,
     checkCategoryId,
     deleteCategory,

@@ -1,6 +1,20 @@
 const DB = require('../db');
 const con = DB.con;
 
+function getAllCategories() {
+    return new Promise(function (resolve) {
+        let sql = "SELECT * FROM `db_final`.`category`;";
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log("[VIEW CATEGORIES ERROR]: " + err);
+                resolve(false);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
 function createCategory(id, name) {
     return new Promise(function (resolve) {
         let sql = "INSERT INTO `db_final`.`category` (`category_id`, `category_name`) " +
@@ -77,6 +91,7 @@ function updateCategory(id, name) {
 }
 
 module.exports = {
+    getAllCategories,
     createCategory,
     checkCategoryId,
     deleteCategory,
