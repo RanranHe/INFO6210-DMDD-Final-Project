@@ -20,7 +20,7 @@ function checkOrderId(req, res, next) {
             if (check) {
                 return next();
             } else {
-                return res.status(400).send({"message": "Order doesn't exist."});
+                return res.status(400).send({"message": "Order doesn't exist.", "orderId": id});
             }
         })
 }
@@ -43,10 +43,10 @@ function getOrderDetails(req, res) {
 function createOrder(req, res) {
     const data = req.body;
     const id = uuid();
-    orderService.createOrder(uuid(), data.customerId, data.orderDate, data.employeeId)
+    orderService.createOrder(id, data.customerId, data.orderDate, data.employeeId)
         .then(function (result) {
             if (result) {
-                res.status(200).send({
+                res.status(200).send({"message": "Order created successfully.",
                     "orderId": id, "customerId": data.customerId,
                     "orderDate": data.orderDate, "employeeId": data.employeeId
                 });
@@ -65,7 +65,7 @@ function createItem(req, res) {
     orderService.createItem(id, orderId, data.quantity, data.bookId)
         .then(function (result) {
             if (result) {
-                res.status(200).send({
+                res.status(200).send({"message": "Item added/updated successfully.",
                     "itemId": result.new_itemId, "orderId": result.new_orderId,
                     "quantity": result.new_qua, "bookId": result.new_bookId
                 });
@@ -93,9 +93,9 @@ function deleteItem(req, res) {
     orderService.deleteItem(id)
         .then(function (result) {
             if (result) {
-                res.status(200).send({"itemId": id, "message": "Item deleted."});
+                res.status(200).send({"message": "Item deleted.", "itemId": id});
             } else {
-                res.status(400).send({"message": "Failed to delete item."});
+                res.status(400).send({"message": "Failed to delete item.", "itemId": id});
             }
         })
 }
@@ -105,9 +105,9 @@ function deleteOrder(req, res) {
     orderService.deleteOrder(id)
         .then(function (result) {
             if (result) {
-                res.status(200).send({"orderId": id, "message": "Order deleted."});
+                res.status(200).send({"message": "Order deleted.", "orderId": id});
             } else {
-                res.status(400).send({"message": "Failed to delete order."});
+                res.status(400).send({"message": "Failed to delete order.", "orderId": id});
             }
         })
 }

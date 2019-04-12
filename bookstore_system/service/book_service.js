@@ -15,6 +15,27 @@ function getAllBooks() {
     });
 }
 
+function createBook(id, price, locationId, stock, book_name,publisher_id, author_id, publisher_date,
+                    description, category_id) {
+    return new Promise(function (resolve) {
+        let sql = "INSERT INTO `db_final`.`book` (`book_id`, `price`, `location_id`, `stock`, `book_name`, " +
+            "`publisher_id`, `author_id`, `publisher_date`, `description`, `category_id`) " +
+            "VALUES ('" + id + "', '" + price + "', '" + locationId + "', '" + stock + "', '" + book_name + "', '"
+            + publisher_id + "', '" + author_id + "', '" + publisher_date + "', '" + description + "', '" +
+            category_id + "')";
+        con.query(sql, function (err) {
+            if (err) {
+                console.log("[INSERT BOOK ERROR]: " + err);
+                resolve(false);
+                throw err;
+            } else {
+                resolve(true);
+            }
+        });
+    });
+}
+
 module.exports = {
-    getAllBooks
+    getAllBooks,
+    createBook
 };
