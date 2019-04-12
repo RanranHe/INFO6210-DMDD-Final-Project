@@ -14,5 +14,7 @@ router.post('/order/:orderId/item', order.checkOrderId, order.createItem);
 router.delete('/order/item/:itemId', order.checkItemId, order.deleteItem);
 // delete an order and related items
 router.delete('/order/:orderId', order.checkOrderId, order.deleteOrder);
+// update stock after place order
+router.put('/order/:orderId', order.checkOrderId, order.updateStock);
 
 module.exports = router;

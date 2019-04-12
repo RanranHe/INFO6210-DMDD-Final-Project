@@ -113,6 +113,20 @@ function createItem(item_id, order_id, quantity, book_id) {
     });
 }
 
+function updateStock(orderId) {
+    return new Promise(function (resolve) {
+        let sql = "CALL update_stock_while_placing_order('" + orderId + "', @a);";
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log("[UPDATE STOCK ERROR]: " + err);
+                resolve(false);
+            } else {
+                resolve(result[0][0]);
+            }
+        });
+    });
+}
+
 function checkItemId(item_id) {
     return new Promise(function (resolve) {
         let sql = "SELECT * FROM db_final.`item` WHERE item_id='" + item_id + "'";
@@ -167,6 +181,7 @@ module.exports = {
     getOrderDetails,
     createOrder,
     createItem,
+    updateStock,
     checkItemId,
     deleteItem,
     deleteOrder
