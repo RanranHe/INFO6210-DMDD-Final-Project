@@ -1,6 +1,6 @@
 USE `db_final`;
-CREATE  OR REPLACE VIEW `book_info` AS
-SELECT B.book_name, P.publisher_name, A.author_name, C.category_name, B.price, L.shelf_no, L.row, L.column, B.stock
+CREATE OR REPLACE VIEW `book_info` AS
+SELECT B.book_id, B.book_name, P.publisher_id, publisher_name, A.author_id, author_name, C.category_id, C.category_name, B.price, L.location_id, shelf_no, L.row, L.column, B.stock
 FROM book AS B INNER JOIN location AS L ON B.location_id=L.location_id
 INNER JOIN publisher AS P ON B.publisher_id=P.publisher_id
 INNER JOIN category AS C ON B.category_id=C.category_id
