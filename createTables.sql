@@ -9,25 +9,25 @@ CREATE TABLE `db_final`.`customer` (
   `customer_email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`customer_id`));
               
-CREATE TABLE `db_final`.`timesheet` (
-  `timesheet_id` VARCHAR(100) NOT NULL,
-  `year` INT NOT NULL,
-  `month` INT NOT NULL,
-  PRIMARY KEY (`timesheet_id`));
-               
-CREATE TABLE `db_final`.`employee` (
+ CREATE TABLE `db_final`.`employee` (
   `employee_id` VARCHAR(100) NOT NULL,
   `employee_name` VARCHAR(45) NOT NULL,
   `employee_phone` CHAR(10) NOT NULL,
   `salary` DECIMAL(10,1) NOT NULL,
+  PRIMARY KEY (`employee_id`));           
+    
+CREATE TABLE `db_final`.`timesheet` (
   `timesheet_id` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`employee_id`),
-  INDEX `timesheet_id_idx` (`timesheet_id` ASC),
-  CONSTRAINT `timesheetID`
-    FOREIGN KEY (`timesheet_id`)
-    REFERENCES `db_final`.`timesheet` (`timesheet_id`)
+  `employee_id` VARCHAR(100) NOT NULL,
+  `year` INT NOT NULL,
+  `month` INT NOT NULL,
+  PRIMARY KEY (`timesheet_id`),
+  INDEX `employee_id_idx` (`employee_id` ASC),
+  CONSTRAINT `employeeId`
+    FOREIGN KEY (`employee_id`)
+    REFERENCES `db_final`.`employee` (`employee_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION);     
               
 CREATE TABLE `db_final`.`order` (
   `order_id` VARCHAR(100) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `db_final`.`order` (
     REFERENCES `db_final`.`customer` (`customer_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `employeeID`
+  CONSTRAINT `employee_ID`
     FOREIGN KEY (`employee_id`)
     REFERENCES `db_final`.`employee` (`employee_id`)
     ON DELETE NO ACTION
