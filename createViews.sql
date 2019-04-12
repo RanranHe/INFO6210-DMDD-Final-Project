@@ -19,5 +19,5 @@ FROM `order` AS O INNER JOIN `employee` AS E ON O.employee_id=E.employee_id
 INNER JOIN `customer` AS C ON O.customer_id=C.customer_id;
 
 CREATE OR REPLACE VIEW `order_details_view` AS
-SELECT I.order_id, I.quantity, B.book_name, B.price
+SELECT I.order_id, I.item_id, I.quantity, B.book_name, B.price
 FROM `item` AS I INNER JOIN `book` AS B ON I.book_id=B.book_id;
