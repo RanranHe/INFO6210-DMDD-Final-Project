@@ -106,7 +106,7 @@ DROP procedure IF EXISTS `add_item`;
 
 DELIMITER $$
 USE `db_final`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `add_item`(IN itemId VARCHAR(100), IN orderId VARCHAR(100), IN qua INT, IN bookId VARCHAR(100),
+CREATE PROCEDURE `add_item`(IN itemId VARCHAR(100), IN orderId VARCHAR(100), IN qua INT, IN bookId VARCHAR(100),
 							OUT new_itemId VARCHAR(100), OUT new_orderId VARCHAR(100), OUT new_qua INT, OUT new_bookId VARCHAR(100))
 BEGIN
 	DECLARE num INT;
