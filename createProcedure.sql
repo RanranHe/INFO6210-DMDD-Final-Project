@@ -134,4 +134,19 @@ BEGIN
     SELECT new_itemId, new_orderId, new_qua, new_bookId;
 END$$
 
+
+/* Delete an order and its related items */     
+DELIMITER ;
+
+USE `db_final`;
+DROP procedure IF EXISTS `delete_order`;
+
+DELIMITER $$
+USE `db_final`$$
+CREATE PROCEDURE `delete_order` (IN orderId VARCHAR(100))
+BEGIN
+	DELETE FROM `db_final`.`item` WHERE order_id=orderId;
+    DELETE FROM `db_final`.`order` WHERE order_id=orderId;
+END$$
+
 DELIMITER ;
