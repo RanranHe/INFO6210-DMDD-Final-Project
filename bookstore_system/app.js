@@ -14,6 +14,7 @@ var categoryRouter = require('./routes/category');
 var publisherRouter = require('./routes/publisher');
 var locationRouter = require('./routes/location');
 var customerRouter = require('./routes/customer');
+var employeeRouter = require('./routes/employee');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +33,7 @@ app.use('/', categoryRouter);
 app.use('/', publisherRouter);
 app.use('/', locationRouter);
 app.use('/', customerRouter);
+app.use('/', employeeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
