@@ -1,1 +1,1 @@
-# Final Project Book_store_system for INFO6210 DMDD
+# Final Project Book Store System for INFO6210 DMDD
