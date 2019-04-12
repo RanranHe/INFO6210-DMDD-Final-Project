@@ -46,25 +46,6 @@ BEGIN
     SELECT book_updated_count;
 END$$
 DELIMITER ;
-
-/* Given a book id, return location, author, publisher, category details */
-DROP procedure IF EXISTS `check_book_details`;
-
-DELIMITER $$
-USE `db_final`$$
-CREATE PROCEDURE `check_book_details`(IN id VARCHAR(100), OUT shelf INT, OUT b_row INT, OUT b_column INT, 
-OUT p_name VARCHAR(45), OUT p_country VARCHAR(45), OUT p_city VARCHAR(45), OUT category VARCHAR(45), OUT author VARCHAR(45))
-BEGIN
-    SELECT L.shelf_no, L.row, L.column, P.publisher_name, P.country, P.city, C.category_name, A.author_name
-    INTO shelf, b_row, b_column, p_name, p_country, p_city, category, author
-    FROM book AS B INNER JOIN location AS L ON B.location_id=L.location_id
-    INNER JOIN publisher AS P ON B.publisher_id=P.publisher_id
-    INNER JOIN category AS C ON B.category_id=C.category_id
-    INNER JOIN author AS A ON B.author_id=A.author_id
-    WHERE B.book_id=id;
-END$$
-
-DELIMITER ;
                                                       
 /* Given order id, return total price and total item count */
 DROP procedure IF EXISTS `calculus_total_price`;
