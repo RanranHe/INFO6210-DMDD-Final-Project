@@ -1,18 +1,6 @@
 const orderService = require('../service/order_service');
 const uuid = require('uuid/v1');
 
-function getTotalPrice(req, res) {
-    const id = req.params.orderId;
-    orderService.getTotalPrice(id)
-        .then(function (data) {
-            if (data) {
-                res.status(200).send({"orderId": id, "itemCount": data.item_count, "totalPrice": data.total});
-            } else {
-                res.status(400).send({"message": "Error"});
-            }
-        });
-}
-
 function checkOrderId(req, res, next) {
     const id = req.params.orderId;
     orderService.checkOrderId(id)
@@ -20,7 +8,7 @@ function checkOrderId(req, res, next) {
             if (check) {
                 return next();
             } else {
-                return res.status(400).send({"message": "Order doesn't exist."});
+                return res.status(400).send({"message": "Order doesn't exist.", "orderId": id});
             }
         })
 }
@@ -28,25 +16,39 @@ function checkOrderId(req, res, next) {
 function getAllOrders(req, res) {
     orderService.getAllOrders()
         .then(function (data) {
-            res.status(200).send({"orders": data});
+            if (data) {
+                res.status(200).send({"orders": data});
+            } else {
+                res.status(400).send({"message": "Read data error"});
+            }
         })
 }
 
 function getOrderDetails(req, res) {
     const id = req.params.orderId;
-    orderService.getOrderDetails(id)
-        .then(function (data) {
-            res.status(200).send({"items": data});
+    orderService.getOrderItems(id)
+        .then(function (data1) {
+            orderService.getOrderDetails(id)
+                .then(function (data2) {
+                    orderService.getTotalPrice(id)
+                        .then(function (data3) {
+                            res.status(200).send({
+                                "order": data2, "items": data1,
+                                "itemCount": data3.item_count, "total": data3.total
+                            });
+                        })
+                })
         })
 }
 
 function createOrder(req, res) {
     const data = req.body;
     const id = uuid();
-    orderService.createOrder(uuid(), data.customerId, data.orderDate, data.employeeId)
+    orderService.createOrder(id, data.customerId, data.orderDate, data.employeeId)
         .then(function (result) {
             if (result) {
                 res.status(200).send({
+                    "message": "Order created successfully.",
                     "orderId": id, "customerId": data.customerId,
                     "orderDate": data.orderDate, "employeeId": data.employeeId
                 });
@@ -66,6 +68,7 @@ function createItem(req, res) {
         .then(function (result) {
             if (result) {
                 res.status(200).send({
+                    "message": "Item added/updated successfully.",
                     "itemId": result.new_itemId, "orderId": result.new_orderId,
                     "quantity": result.new_qua, "bookId": result.new_bookId
                 });
@@ -93,9 +96,9 @@ function deleteItem(req, res) {
     orderService.deleteItem(id)
         .then(function (result) {
             if (result) {
-                res.status(200).send({"itemId": id, "message": "Item deleted."});
+                res.status(200).send({"message": "Item deleted.", "itemId": id});
             } else {
-                res.status(400).send({"message": "Failed to delete item."});
+                res.status(400).send({"message": "Failed to delete item.", "itemId": id});
             }
         })
 }
@@ -105,15 +108,26 @@ function deleteOrder(req, res) {
     orderService.deleteOrder(id)
         .then(function (result) {
             if (result) {
-                res.status(200).send({"orderId": id, "message": "Order deleted."});
+                res.status(200).send({"message": "Order deleted."});
             } else {
                 res.status(400).send({"message": "Failed to delete order."});
             }
         })
 }
 
+function updateStock(req, res) {
+    const id = req.params.orderId;
+    orderService.updateStock(id)
+        .then(function (result) {
+            if (result) {
+                res.status(200).send({"message": result.book_updated_count + " books stock updated"});
+            } else {
+                res.status(400).send({"message": "Failed to update stock."});
+            }
+        })
+}
+
 module.exports = {
-    getTotalPrice,
     checkOrderId,
     getAllOrders,
     getOrderDetails,
@@ -121,5 +135,6 @@ module.exports = {
     createItem,
     checkItemId,
     deleteItem,
-    deleteOrder
+    deleteOrder,
+    updateStock
 };

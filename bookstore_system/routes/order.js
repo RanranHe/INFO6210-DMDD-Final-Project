@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const order = require('../server/order_server');
 
-// get the total item count and price of a order
-router.get('/order/:orderId/total', order.checkOrderId, order.getTotalPrice);
 // get all orders listed
 router.get('/orders', order.getAllOrders);
 // get a order's items details
@@ -16,5 +14,7 @@ router.post('/order/:orderId/item', order.checkOrderId, order.createItem);
 router.delete('/order/item/:itemId', order.checkItemId, order.deleteItem);
 // delete an order and related items
 router.delete('/order/:orderId', order.checkOrderId, order.deleteOrder);
+// update stock after place order
+router.put('/order/:orderId', order.checkOrderId, order.updateStock);
 
 module.exports = router;
