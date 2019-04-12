@@ -1,13 +1,13 @@
 const DB = require('../db');
 const con = DB.con;
 
-function createAuthor(id, name, dob) {
+function createCategory(id, name) {
     return new Promise(function (resolve) {
-        let sql = "INSERT INTO `db_final`.`author` (`author_id`, `author_name`, `date_of_birth`) " +
-            "VALUES ('" + id + "', '" + name + "', '" + dob + "')";
+        let sql = "INSERT INTO `db_final`.`category` (`category_id`, `category_name`) " +
+            "VALUES ('" + id + "', '" + name + "')";
         con.query(sql, function (err) {
             if (err) {
-                console.log("[INSERT AUTHOR ERROR]: " + err);
+                console.log("[INSERT CATEGORY ERROR]: " + err);
                 resolve(false);
             } else {
                 resolve(true);
@@ -16,16 +16,16 @@ function createAuthor(id, name, dob) {
     });
 }
 
-function checkAuthorId(id) {
+function checkCategoryId(id) {
     return new Promise(function (resolve) {
-        let sql = "SELECT * FROM db_final.`author` WHERE author_id='" + id + "'";
+        let sql = "SELECT * FROM db_final.`category` WHERE category_id='" + id + "'";
         con.query(sql, function (err, result) {
             if (err) {
-                console.log("[CHECK AUTHOR ID ERROR]: " + err);
+                console.log("[CHECK CATEGORY ID ERROR]: " + err);
                 resolve(false);
             }
             if (result[0] == null || result[0] === undefined) {
-                console.log(`[SEARCH FAILED]: NO SUCH AUTHOR`);
+                console.log(`[SEARCH FAILED]: NO SUCH CATEGORY`);
                 resolve(false);
             } else {
                 resolve(true);
@@ -34,12 +34,12 @@ function checkAuthorId(id) {
     });
 }
 
-function deleteAuthor(id) {
+function deleteCategory(id) {
     return new Promise(function (resolve) {
-        let sql = "DELETE FROM `db_final`.`author` WHERE author_id='" + id + "'";
+        let sql = "DELETE FROM `db_final`.`category` WHERE category_id='" + id + "'";
         con.query(sql, function (err) {
             if (err) {
-                console.log("[DELETE AUTHOR ERROR]: " + err);
+                console.log("[DELETE CATEGORY ERROR]: " + err);
                 resolve(false);
             } else {
                 resolve(true);
@@ -48,12 +48,12 @@ function deleteAuthor(id) {
     });
 }
 
-function getAuthor(id) {
+function getCategory(id) {
     return new Promise(function (resolve) {
-        let sql = "SELECT * FROM `db_final`.`author` WHERE author_id='" + id + "';";
+        let sql = "SELECT * FROM `db_final`.`category` WHERE category_id='" + id + "';";
         con.query(sql, function (err, result) {
             if (err) {
-                console.log("[VIEW AUTHOR DETAILS ERROR]: " + err);
+                console.log("[VIEW CATEGORY DETAILS ERROR]: " + err);
                 resolve(false);
             } else {
                 resolve(result[0]);
@@ -62,13 +62,12 @@ function getAuthor(id) {
     });
 }
 
-function updateAuthor(id, name, dob) {
+function updateCategory(id, name) {
     return new Promise(function (resolve) {
-        let sql = "UPDATE `db_final`.`author` SET `author_name`='" + name +"', `date_of_birth`='"+
-            dob +"' WHERE author_id='" + id + "'";
+        let sql = "UPDATE `db_final`.`category` SET `category_name`='" + name + "' WHERE category_id='" + id + "'";
         con.query(sql, function (err, result) {
             if (err) {
-                console.log("[UPDATE AUTHOR ERROR]: " + err);
+                console.log("[UPDATE CATEGORY ERROR]: " + err);
                 resolve(false);
             } else {
                 resolve(true);
@@ -78,9 +77,9 @@ function updateAuthor(id, name, dob) {
 }
 
 module.exports = {
-    createAuthor,
-    checkAuthorId,
-    deleteAuthor,
-    getAuthor,
-    updateAuthor
+    createCategory,
+    checkCategoryId,
+    deleteCategory,
+    getCategory,
+    updateCategory
 };

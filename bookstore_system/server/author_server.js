@@ -37,7 +37,7 @@ function deleteAuthor(req, res) {
             if (check) {
                 res.status(200).send({"message": "Author deleted successfully"});
             } else {
-                res.status(400).send({"message": "Failed to author. The author is related to books."});
+                res.status(400).send({"message": "Failed to delete author. The author is related to books."});
             }
         })
 }
