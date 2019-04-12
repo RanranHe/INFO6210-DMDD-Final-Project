@@ -8,7 +8,6 @@ function getAllBooks() {
             if (err) {
                 console.log("[VIEW BOOKS ERROR]: " + err);
                 resolve(false);
-                throw err;
             } else {
                 resolve(result);
             }
@@ -28,7 +27,6 @@ function createBook(id, price, locationId, stock, book_name, publisher_id, autho
             if (err) {
                 console.log("[INSERT BOOK ERROR]: " + err);
                 resolve(false);
-                throw err;
             } else {
                 resolve(true);
             }
@@ -43,7 +41,6 @@ function checkBookId(bookId) {
             if (err) {
                 console.log("[CHECK BOOK ID ERROR]: " + err);
                 resolve(false);
-                throw err;
             }
             if (result[0] == null || result[0] === undefined) {
                 console.log(`[SEARCH FAILED]: NO SUCH BOOK`);
@@ -62,7 +59,6 @@ function getBookDetails(bookId) {
             if (err) {
                 console.log("[VIEW BOOK DETAILS ERROR]: " + err);
                 resolve(false);
-                throw err;
             } else {
                 resolve(result[0]);
             }
@@ -81,7 +77,20 @@ function updateBook(id, price, locationId, stock, book_name, publisher_id, autho
             if (err) {
                 console.log("[UPDATE BOOK ERROR]: " + err);
                 resolve(false);
-                throw err;
+            } else {
+                resolve(true);
+            }
+        });
+    });
+}
+
+function deleteBook(id) {
+    return new Promise(function (resolve) {
+        let sql = "DELETE FROM `db_final`.`book` WHERE book_id='" + id + "'";
+        con.query(sql, function (err) {
+            if (err) {
+                console.log("[DELETE BOOK ERROR]: " + err);
+                resolve(false);
             } else {
                 resolve(true);
             }
@@ -94,5 +103,6 @@ module.exports = {
     createBook,
     checkBookId,
     getBookDetails,
-    updateBook
+    updateBook,
+    deleteBook
 };

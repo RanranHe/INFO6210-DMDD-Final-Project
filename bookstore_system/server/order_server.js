@@ -16,7 +16,11 @@ function checkOrderId(req, res, next) {
 function getAllOrders(req, res) {
     orderService.getAllOrders()
         .then(function (data) {
-            res.status(200).send({"orders": data});
+            if (data) {
+                res.status(200).send({"orders": data});
+            } else {
+                res.status(400).send({"message": "Read data error"});
+            }
         })
 }
 

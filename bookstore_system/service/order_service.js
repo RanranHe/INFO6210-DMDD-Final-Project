@@ -9,7 +9,6 @@ function getTotalPrice(orderId) {
             if (err) {
                 console.log("[GET TOTAL PRICE ERROR]: " + err);
                 resolve(false);
-                throw err;
             }
             let row = rows[0][0];
             if (row) {
@@ -30,7 +29,6 @@ function checkOrderId(orderId) {
             if (err) {
                 console.log("[CHECK ORDER ID ERROR]: " + err);
                 resolve(false);
-                throw err;
             }
             if (result[0] == null || result[0] === undefined) {
                 console.log(`[SEARCH FAILED]: NO SUCH ORDER`);
@@ -49,7 +47,6 @@ function getAllOrders() {
             if (err) {
                 console.log("[VIEW ORDERS ERROR]: " + err);
                 resolve(false);
-                throw err;
             } else {
                 resolve(result);
             }
@@ -64,7 +61,6 @@ function getOrderItems(orderId) {
             if (err) {
                 console.log("[VIEW ORDER ITEMS DETAILS ERROR]: " + err);
                 resolve(false);
-                throw err;
             } else {
                 resolve(result);
             }
@@ -79,7 +75,6 @@ function getOrderDetails(orderId) {
             if (err) {
                 console.log("[VIEW ORDER DETAILS ERROR]: " + err);
                 resolve(false);
-                throw err;
             } else {
                 resolve(result[0]);
             }
@@ -95,7 +90,6 @@ function createOrder(order_id, customer_id, order_date, employee_id) {
             if (err) {
                 console.log("[INSERT ORDER ERROR]: " + err);
                 resolve(false);
-                throw err;
             } else {
                 resolve(true);
             }
@@ -111,7 +105,6 @@ function createItem(item_id, order_id, quantity, book_id) {
             if (err) {
                 console.log("[INSERT ITEM ERROR]: " + err);
                 resolve(false);
-                throw err;
             } else {
                 console.log(result[0][0]);
                 resolve(result[0][0]);
@@ -127,7 +120,6 @@ function checkItemId(item_id) {
             if (err) {
                 console.log("[CHECK ITEM ID ERROR]: " + err);
                 resolve(false);
-                throw err;
             }
             if (result[0] == null || result[0] === undefined) {
                 console.log(`[SEARCH FAILED]: NO SUCH ITEM`);
@@ -146,7 +138,6 @@ function deleteItem(item_id) {
             if (err) {
                 console.log("[DELETE ITEM ERROR]: " + err);
                 resolve(false);
-                throw err;
             } else {
                 resolve(true);
             }
@@ -161,7 +152,6 @@ function deleteOrder(order_id) {
             if (err) {
                 console.log("[DELETE ORDER ERROR]: " + err);
                 resolve(false);
-                throw err;
             } else {
                 resolve(true);
             }

@@ -10,6 +10,8 @@ router.post('/book', book.createBook);
 router.get('/book/:bookId', book.checkBookId, book.getBookDetails);
 // update book info
 router.put('/book/:bookId', book.checkBookId, book.updateBook);
+// delete book
+router.delete('/book/:bookId', book.checkBookId, book.deleteBook);
 /*
 // get a order's items details
 router.get('/order/:orderId', order.checkOrderId, order.getOrderDetails);

@@ -56,10 +56,23 @@ function updateBook(req, res) {
         })
 }
 
+function deleteBook(req, res) {
+    const id = req.params.bookId;
+    bookService.deleteBook(id)
+        .then(function (check) {
+            if (check) {
+                res.status(200).send({"message": "Book deleted successfully"});
+            } else {
+                res.status(400).send({"message": "Failed to delete. The book is related to orders."});
+            }
+        })
+}
+
 module.exports = {
     getAllBooks,
     createBook,
     checkBookId,
     getBookDetails,
-    updateBook
+    updateBook,
+    deleteBook
 };
