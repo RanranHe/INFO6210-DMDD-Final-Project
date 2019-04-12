@@ -1,6 +1,6 @@
 USE `db_final`;
 CREATE OR REPLACE VIEW `book_info` AS
-SELECT B.book_id, B.book_name, P.publisher_id, publisher_name, A.author_id, author_name, C.category_id, C.category_name, B.price, L.location_id, shelf_no, L.row, L.column, B.stock
+SELECT B.book_id, B.book_name, publisher_name, author_name, C.category_name, B.price, shelf_no, L.row, L.column, B.stock
 FROM book AS B INNER JOIN location AS L ON B.location_id=L.location_id
 INNER JOIN publisher AS P ON B.publisher_id=P.publisher_id
 INNER JOIN category AS C ON B.category_id=C.category_id
@@ -20,5 +20,5 @@ FROM `order` AS O INNER JOIN `employee` AS E ON O.employee_id=E.employee_id
 INNER JOIN `customer` AS C ON O.customer_id=C.customer_id;
 
 CREATE OR REPLACE VIEW `order_details_view` AS
-SELECT I.order_id, I.quantity, B.book_id, B.book_name, B.price
+SELECT I.order_id, I.quantity, B.book_name, B.price
 FROM `item` AS I INNER JOIN `book` AS B ON I.book_id=B.book_id;
