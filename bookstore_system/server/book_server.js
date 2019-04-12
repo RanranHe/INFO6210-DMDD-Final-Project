@@ -15,7 +15,8 @@ function createBook(req, res) {
         data.publisherId, data.authorId, data.publishDate, data.description, data.categoryId)
         .then(function (result) {
             if (result) {
-                res.status(200).send({"message": "Book created successfully.",
+                res.status(200).send({
+                    "message": "Book created successfully.",
                     "bookId": id, "price": data.price, "locationId": data.locationId, "stock": data.stock,
                     "bookName": data.bookName, "publisherId": data.publisherId, "authorId": data.authorId,
                     "publishDate": data.publishDate, "description": data.description, "categoryId": data.categoryId
@@ -42,7 +43,11 @@ function getBookDetails(req, res) {
     const id = req.params.bookId;
     bookService.getBookDetails(id)
         .then(function (data) {
-            res.status(200).send(data);
+            if (!data) {
+                res.status(400).send({"message": "Read data error"});
+            } else {
+                res.status(200).send(data);
+            }
         })
 }
 
@@ -52,7 +57,11 @@ function updateBook(req, res) {
     bookService.updateBook(id, data.price, data.locationId, data.stock, data.bookName,
         data.publisherId, data.authorId, data.publishDate, data.description, data.categoryId)
         .then(function (data) {
-            res.status(200).send(data);
+            if (data) {
+                res.status(200).send(data);
+            } else {
+                res.status(400).send({"message": "Failed to update book"});
+            }
         })
 }
 
