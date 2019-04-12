@@ -1,6 +1,20 @@
 const DB = require('../db');
 const con = DB.con;
 
+function getAllAuthors() {
+    return new Promise(function (resolve) {
+        let sql = "SELECT * FROM `db_final`.`author`;";
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log("[VIEW AUTHORS ERROR]: " + err);
+                resolve(false);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
 function createAuthor(id, name, dob) {
     return new Promise(function (resolve) {
         let sql = "INSERT INTO `db_final`.`author` (`author_id`, `author_name`, `date_of_birth`) " +
@@ -78,6 +92,7 @@ function updateAuthor(id, name, dob) {
 }
 
 module.exports = {
+    getAllAuthors,
     createAuthor,
     checkAuthorId,
     deleteAuthor,

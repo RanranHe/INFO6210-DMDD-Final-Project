@@ -1,6 +1,13 @@
 const authorService = require('../service/author_service');
 const uuid = require('uuid/v1');
 
+function getAllAuthors(req, res) {
+    authorService.getAllAuthors()
+        .then(function (data) {
+            res.status(200).send({"authors": data});
+        })
+}
+
 function createAuthor(req, res) {
     const data = req.body;
     const id = uuid();
@@ -71,6 +78,7 @@ function updateAuthor(req, res) {
 }
 
 module.exports = {
+    getAllAuthors,
     createAuthor,
     checkAuthorId,
     deleteAuthor,
