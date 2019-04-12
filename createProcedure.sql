@@ -110,10 +110,31 @@ DROP procedure IF EXISTS `delete_order`;
 
 DELIMITER $$
 USE `db_final`$$
-CREATE PROCEDURE `delete_order` (IN orderId VARCHAR(100))
+CREATE PROCEDURE `delete_order` (IN orderId VARCHAR(100), OUT result BOOLEAN)
 BEGIN
+	SET result=false;
+    
 	DELETE FROM `db_final`.`item` WHERE order_id=orderId;
     DELETE FROM `db_final`.`order` WHERE order_id=orderId;
+    
+    SET result=true;
 END$$
 
+DELIMITER ;
+						    
+/* Delete timesheet with all periods under it */
+DROP procedure IF EXISTS `delete_timesheet`;
+
+DELIMITER $$
+USE `db_final`$$
+CREATE PROCEDURE `delete_timesheet`(IN timesheetID VARCHAR(100), OUT result BOOLEAN)
+BEGIN
+    SET result=false;
+
+    DELETE FROM `db_final`.`period` WHERE period.timesheet_id=timesheetID;
+    DELETE FROM `db_final`.`timesheet` WHERE timesheet.timesheet_id=timesheetID;
+
+    SET result=true;
+    SELECT result;
+END$$
 DELIMITER ;
