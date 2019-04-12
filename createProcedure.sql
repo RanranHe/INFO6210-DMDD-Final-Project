@@ -171,3 +171,19 @@ END$$
 
 DELIMITER ;
 
+/* update item with new quantity and update stock */
+DROP procedure IF EXISTS `update_item`;
+
+DELIMITER $$
+USE `db_final`$$
+CREATE PROCEDURE `update_item` (IN itemID VARCHAR(100), IN qua INT)
+BEGIN
+    DECLARE num INT;
+    DECLARE bookId VARCHAR(100);
+    
+    SELECT item.quantity, item.book_id INTO num, bookId FROM `db_final`.`item` WHERE item.item_id=itemID;
+    UPDATE `db_final`.`book` SET book.stock=book.stock+num-qua WHERE book.book_id=bookId;
+    UPDATE `db_final`.`item` SET item.quantity=qua WHERE item.item_id=itemID;
+END$$
+
+DELIMITER ;
