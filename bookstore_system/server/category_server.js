@@ -9,7 +9,7 @@ function createCategory(req, res) {
             if (result) {
                 res.status(200).send({
                     "message": "Category created successfully.",
-                    "authorId": id, "categoryName": data.categoryName
+                    "categoryId": id, "categoryName": data.categoryName
                 });
             } else {
                 res.status(400).send({"message": "Failed to create category."});
@@ -61,7 +61,7 @@ function updateCategory(req, res) {
         .then(function (result) {
             if (result) {
                 res.status(200).send({
-                    "message": "Update author successfully", "authorId": id,
+                    "message": "Update category successfully", "categoryId": id,
                     "categoryName": data.categoryName
                 });
             } else {
