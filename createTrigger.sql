@@ -155,3 +155,20 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+/* --------- Trigger for Location Table ---------
+   Situations Preventing Insert:
+   1. same location
+*/		
+DELIMITER $$
+USE `db_final`$$
+DROP TRIGGER IF EXISTS `db_final`.`location_check`$$
+CREATE TRIGGER  `db_final`.`location_check` BEFORE INSERT ON `location` FOR EACH ROW 
+BEGIN
+	DECLARE num INT;
+   SELECT COUNT(*) INTO num
+   FROM `db_final`.`location` AS L WHERE NEW.shelf_no=L.shelf_no AND NEW.row=L.row AND NEW.column=L.column;
+   IF num<>0 THEN SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Duplicated location'; END IF;
+END$$
+
+DELIMITER ;		
