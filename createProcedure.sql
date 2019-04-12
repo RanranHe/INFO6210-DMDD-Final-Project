@@ -68,7 +68,8 @@ DELIMITER ;
 
                                                                                                                         
 /* Add item: if book already exists, then update quantity.
-   Otherwise, create new item */                                                                                                                        
+   Otherwise, create new item 
+   Update stock */                                                                                                                        
 DROP procedure IF EXISTS `add_item`;
 
 DELIMITER $$
@@ -97,12 +98,13 @@ BEGIN
         
         SELECT itemId, orderId, cur_qua, bookId INTO new_itemId, new_orderId, new_qua, new_bookId;
     END IF;
-    
+    UPDATE book SET book.stock=book.stock-qua WHERE book.book_id=bookId;
     SELECT new_itemId, new_orderId, new_qua, new_bookId;
 END$$
 
 
-/* Delete an order and its related items */     
+/* Delete an order and its related items 
+   Update stocks */     
 DELIMITER ;
 
 USE `db_final`;
@@ -111,7 +113,29 @@ DROP procedure IF EXISTS `delete_order`;
 DELIMITER $$
 USE `db_final`$$
 CREATE PROCEDURE `delete_order` (IN orderId VARCHAR(100))
-BEGIN
+    DECLARE num INT;
+    DECLARE qu INT;  
+    DECLARE b_id VARCHAR(100);
+    DECLARE i INT DEFAULT 0;
+    
+    SELECT COUNT(*) INTO num
+    FROM item
+    WHERE item.order_id=orderID;
+    
+    WHILE num>i  DO
+        SELECT item.quantity, item.book_id INTO qu, b_id
+        FROM item
+        WHERE item.order_id=orderID
+        ORDER BY item.order_id
+        LIMIT i, 1;
+        
+        UPDATE book
+        SET book.stock=book.stock+qu
+        WHERE book.book_id=b_id;
+        
+        SET i=i+1;
+    END WHILE;
+						    
     DELETE FROM `db_final`.`item` WHERE order_id=orderId;
     DELETE FROM `db_final`.`order` WHERE order_id=orderId;
 END$$
@@ -129,3 +153,21 @@ BEGIN
     DELETE FROM `db_final`.`timesheet` WHERE timesheet.timesheet_id=timesheetID;
 END$$
 DELIMITER ;
+
+/* Delete item with stock updates */
+DROP procedure IF EXISTS `delete_item`;
+
+DELIMITER $$
+USE `db_final`$$
+CREATE PROCEDURE `delete_item` (IN itemID VARCHAR(100))
+BEGIN
+	DECLARE num INT;
+    DECLARE bookId VARCHAR(100);
+    
+    SELECT item.quantity, item.book_id INTO num, bookId FROM `db_final`.`item` WHERE item.item_id=itemID;
+    UPDATE `db_final`.`book` SET book.stock=book.stock+num WHERE book.book_id=bookId;
+    DELETE FROM `db_final`.`item` WHERE item.item_id=itemID;
+END$$
+
+DELIMITER ;
+
