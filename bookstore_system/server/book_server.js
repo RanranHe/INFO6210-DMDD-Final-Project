@@ -26,7 +26,29 @@ function createBook(req, res) {
         })
 }
 
+function checkBookId(req, res, next) {
+    const id = req.params.bookId;
+    bookService.checkBookId(id)
+        .then(function (check) {
+            if (check) {
+                return next();
+            } else {
+                res.status(400).send({"message": "Book doesn't exist"});
+            }
+        })
+}
+
+function getBookDetails(req, res) {
+    const id = req.params.bookId;
+    bookService.getBookDetails(id)
+        .then(function (data) {
+            res.status(200).send(data);
+        })
+}
+
 module.exports = {
     getAllBooks,
-    createBook
+    createBook,
+    checkBookId,
+    getBookDetails
 };

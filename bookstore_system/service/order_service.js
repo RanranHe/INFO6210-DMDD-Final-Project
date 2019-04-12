@@ -27,6 +27,7 @@ function checkOrderId(orderId) {
         con.query(sql, function (err, result) {
             if (err) {
                 console.log("[CHECK ORDER ID ERROR]: " + err);
+                resolve(false);
                 throw err;
             }
             if (result[0] == null || result[0]===undefined) {
@@ -53,15 +54,29 @@ function getAllOrders() {
     });
 }
 
-function getOrderDetails(orderId) {
+function getOrderItems(orderId) {
     return new Promise(function (resolve) {
         let sql = "SELECT * FROM order_details_view WHERE order_id='" + orderId+"';";
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log("[VIEW ORDER ITEMS DETAILS ERROR]: " + err);
+                throw err;
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function getOrderDetails(orderId) {
+    return new Promise(function (resolve) {
+        let sql = "SELECT * FROM `db_final`.`order` WHERE order_id='" + orderId+"'";
         con.query(sql, function (err, result) {
             if (err) {
                 console.log("[VIEW ORDER DETAILS ERROR]: " + err);
                 throw err;
             } else {
-                resolve(result);
+                resolve(result[0]);
             }
         });
     });
@@ -151,6 +166,7 @@ module.exports = {
     getTotalPrice,
     checkOrderId,
     getAllOrders,
+    getOrderItems,
     getOrderDetails,
     createOrder,
     createItem,

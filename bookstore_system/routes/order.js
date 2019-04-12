@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const order = require('../server/order_server');
 
-// get the total item count and price of a order
-router.get('/order/:orderId/total', order.checkOrderId, order.getTotalPrice);
 // get all orders listed
 router.get('/orders', order.getAllOrders);
 // get a order's items details

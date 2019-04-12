@@ -34,9 +34,16 @@ function getAllOrders(req, res) {
 
 function getOrderDetails(req, res) {
     const id = req.params.orderId;
-    orderService.getOrderDetails(id)
-        .then(function (data) {
-            res.status(200).send({"items": data});
+    orderService.getOrderItems(id)
+        .then(function (data1) {
+            orderService.getOrderDetails(id)
+                .then(function(data2) {
+                    orderService.getTotalPrice(id)
+                        .then(function (data3) {
+                            res.status(200).send({"order": data2, "items": data1,
+                                "itemCount": data3.item_count, "total": data3.total});
+                        })
+                })
         })
 }
 
@@ -113,7 +120,6 @@ function deleteOrder(req, res) {
 }
 
 module.exports = {
-    getTotalPrice,
     checkOrderId,
     getAllOrders,
     getOrderDetails,

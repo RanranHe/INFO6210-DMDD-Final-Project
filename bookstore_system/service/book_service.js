@@ -35,7 +35,42 @@ function createBook(id, price, locationId, stock, book_name,publisher_id, author
     });
 }
 
+function checkBookId(bookId) {
+    return new Promise(function (resolve) {
+        let sql = "SELECT * FROM db_final.`book` WHERE book_id='" + bookId + "'";
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log("[CHECK BOOK ID ERROR]: " + err);
+                resolve(false);
+                throw err;
+            }
+            if (result[0] == null || result[0]===undefined) {
+                console.log(`[SEARCH FAILED]: NO SUCH BOOK`);
+                resolve(false);
+            } else {
+                resolve(true);
+            }
+        });
+    });
+}
+
+function getBookDetails(bookId) {
+    return new Promise(function (resolve) {
+        let sql = "SELECT * FROM book_info WHERE book_id='" + bookId+"';";
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log("[VIEW BOOK DETAILS ERROR]: " + err);
+                throw err;
+            } else {
+                resolve(result[0]);
+            }
+        });
+    });
+}
+
 module.exports = {
     getAllBooks,
-    createBook
+    createBook,
+    checkBookId,
+    getBookDetails
 };

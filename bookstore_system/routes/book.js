@@ -6,6 +6,8 @@ const book = require('../server/book_server');
 router.get('/books', book.getAllBooks);
 // create new book
 router.post('/book', book.createBook);
+// get book info
+router.get('/book/:bookId', book.checkBookId, book.getBookDetails);
 /*
 // get a order's items details
 router.get('/order/:orderId', order.checkOrderId, order.getOrderDetails);
