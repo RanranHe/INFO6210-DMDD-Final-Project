@@ -8,6 +8,8 @@ router.get('/books', book.getAllBooks);
 router.post('/book', book.createBook);
 // get book info
 router.get('/book/:bookId', book.checkBookId, book.getBookDetails);
+// update book info
+router.put('/book/:bookId', book.checkBookId, book.updateBook);
 /*
 // get a order's items details
 router.get('/order/:orderId', order.checkOrderId, order.getOrderDetails);

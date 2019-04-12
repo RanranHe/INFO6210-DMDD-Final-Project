@@ -46,9 +46,20 @@ function getBookDetails(req, res) {
         })
 }
 
+function updateBook(req, res) {
+    const id = req.params.bookId;
+    const data = req.body;
+    bookService.updateBook(id, data.price, data.locationId, data.stock, data.bookName,
+        data.publisherId, data.authorId, data.publishDate, data.description, data.categoryId)
+        .then(function (data) {
+            res.status(200).send(data);
+        })
+}
+
 module.exports = {
     getAllBooks,
     createBook,
     checkBookId,
-    getBookDetails
+    getBookDetails,
+    updateBook
 };

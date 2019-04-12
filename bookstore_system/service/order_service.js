@@ -1,13 +1,14 @@
 const DB = require('../db');
 const con = DB.con;
 
-function getTotalPrice(orderId){
+function getTotalPrice(orderId) {
     return new Promise(function (resolve) {
         let sql = `CALL calculus_total_price('` + orderId + `', @a, @b);`;
         console.log(sql);
         con.query(sql, function (err, rows) {
             if (err) {
                 console.log("[GET TOTAL PRICE ERROR]: " + err);
+                resolve(false);
                 throw err;
             }
             let row = rows[0][0];
@@ -15,6 +16,7 @@ function getTotalPrice(orderId){
                 console.log("Total price: " + row.total + " Total item count: " + row.item_count);
                 resolve(row);
             } else {
+                resolve(false);
                 console.log("NO total price");
             }
         });
@@ -30,7 +32,7 @@ function checkOrderId(orderId) {
                 resolve(false);
                 throw err;
             }
-            if (result[0] == null || result[0]===undefined) {
+            if (result[0] == null || result[0] === undefined) {
                 console.log(`[SEARCH FAILED]: NO SUCH ORDER`);
                 resolve(false);
             } else {
@@ -46,6 +48,7 @@ function getAllOrders() {
         con.query(sql, function (err, result) {
             if (err) {
                 console.log("[VIEW ORDERS ERROR]: " + err);
+                resolve(false);
                 throw err;
             } else {
                 resolve(result);
@@ -56,10 +59,11 @@ function getAllOrders() {
 
 function getOrderItems(orderId) {
     return new Promise(function (resolve) {
-        let sql = "SELECT * FROM order_details_view WHERE order_id='" + orderId+"';";
+        let sql = "SELECT * FROM order_details_view WHERE order_id='" + orderId + "';";
         con.query(sql, function (err, result) {
             if (err) {
                 console.log("[VIEW ORDER ITEMS DETAILS ERROR]: " + err);
+                resolve(false);
                 throw err;
             } else {
                 resolve(result);
@@ -70,10 +74,11 @@ function getOrderItems(orderId) {
 
 function getOrderDetails(orderId) {
     return new Promise(function (resolve) {
-        let sql = "SELECT * FROM `db_final`.`order` WHERE order_id='" + orderId+"'";
+        let sql = "SELECT * FROM `db_final`.`order` WHERE order_id='" + orderId + "'";
         con.query(sql, function (err, result) {
             if (err) {
                 console.log("[VIEW ORDER DETAILS ERROR]: " + err);
+                resolve(false);
                 throw err;
             } else {
                 resolve(result[0]);
@@ -105,6 +110,7 @@ function createItem(item_id, order_id, quantity, book_id) {
         con.query(sql, function (err, result) {
             if (err) {
                 console.log("[INSERT ITEM ERROR]: " + err);
+                resolve(false);
                 throw err;
             } else {
                 console.log(result[0][0]);
@@ -120,9 +126,10 @@ function checkItemId(item_id) {
         con.query(sql, function (err, result) {
             if (err) {
                 console.log("[CHECK ITEM ID ERROR]: " + err);
+                resolve(false);
                 throw err;
             }
-            if (result[0] == null || result[0]===undefined) {
+            if (result[0] == null || result[0] === undefined) {
                 console.log(`[SEARCH FAILED]: NO SUCH ITEM`);
                 resolve(false);
             } else {

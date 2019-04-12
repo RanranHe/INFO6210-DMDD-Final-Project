@@ -1,18 +1,6 @@
 const orderService = require('../service/order_service');
 const uuid = require('uuid/v1');
 
-function getTotalPrice(req, res) {
-    const id = req.params.orderId;
-    orderService.getTotalPrice(id)
-        .then(function (data) {
-            if (data) {
-                res.status(200).send({"orderId": id, "itemCount": data.item_count, "totalPrice": data.total});
-            } else {
-                res.status(400).send({"message": "Error"});
-            }
-        });
-}
-
 function checkOrderId(req, res, next) {
     const id = req.params.orderId;
     orderService.checkOrderId(id)
