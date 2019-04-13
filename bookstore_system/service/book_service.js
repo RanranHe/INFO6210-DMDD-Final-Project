@@ -98,11 +98,30 @@ function deleteBook(id) {
     });
 }
 
+function searchBook(id, keyword) {
+    return new Promise(function (resolve) {
+        let sql = "CALL search('" + id + "', '" + keyword + "', @a)";
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log("[SEARCH BOOK ERROR]: " + err);
+                resolve(false);
+            }
+            console.log(result[0][0].result);
+            if(result[0][0].result===1) {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        });
+    });
+}
+
 module.exports = {
     getAllBooks,
     createBook,
     checkBookId,
     getBookDetails,
     updateBook,
-    deleteBook
+    deleteBook,
+    searchBook
 };

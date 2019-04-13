@@ -50,7 +50,7 @@ function checkTimesheetId(id) {
 
 function deleteTimesheet(id) {
     return new Promise(function (resolve) {
-        let sql = "DELETE FROM `db_final`.`timesheet` WHERE timesheet_id='" + id + "'";
+        let sql = "CALL delete_timesheet('" + id + "')";
         con.query(sql, function (err) {
             if (err) {
                 console.log("[DELETE TIMESHEET ERROR]: " + err);

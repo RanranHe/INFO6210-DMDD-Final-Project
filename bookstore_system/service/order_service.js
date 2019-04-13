@@ -113,7 +113,7 @@ function createItem(item_id, order_id, quantity, book_id) {
     });
 }
 
-function updateStock(orderId) {
+function updateStockByOrderId(orderId) {
     return new Promise(function (resolve) {
         let sql = "CALL update_stock_while_placing_order('" + orderId + "', @a);";
         con.query(sql, function (err, result) {
@@ -147,7 +147,7 @@ function checkItemId(item_id) {
 
 function deleteItem(item_id) {
     return new Promise(function (resolve) {
-        let sql = "DELETE FROM `db_final`.`item` WHERE `item_id`='" + item_id + "'";
+        let sql = "call delete_item('" + item_id + "')";
         con.query(sql, function (err) {
             if (err) {
                 console.log("[DELETE ITEM ERROR]: " + err);
@@ -173,6 +173,20 @@ function deleteOrder(order_id) {
     });
 }
 
+function updateItem(item_id, quantity) {
+    return new Promise(function (resolve) {
+        let sql = "call update_item('" + item_id + "', " + quantity + ")";
+        con.query(sql, function (err) {
+            if (err) {
+                console.log("[UPDATE ITEM ERROR]: " + err);
+                resolve(false);
+            } else {
+                resolve(true);
+            }
+        });
+    });
+}
+
 module.exports = {
     getTotalPrice,
     checkOrderId,
@@ -181,9 +195,10 @@ module.exports = {
     getOrderDetails,
     createOrder,
     createItem,
-    updateStock,
+    updateStockByOrderId,
     checkItemId,
     deleteItem,
-    deleteOrder
+    deleteOrder,
+    updateItem
 };
 
