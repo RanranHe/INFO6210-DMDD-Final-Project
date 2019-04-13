@@ -187,3 +187,21 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+/* Search book by author/book name/publisher name */
+DROP procedure IF EXISTS `search`;
+
+DELIMITER $$
+USE `db_final`$$
+CREATE PROCEDURE `search` (IN bookId VARCHAR(100), IN keyword VARCHAR(100), OUT result BOOLEAN)
+BEGIN
+	DECLARE num INT;
+    SET result=false;
+	SELECT COUNT(*) INTO num FROM `db_final`.`book_info` WHERE (book.name LIKE keyword OR book.publisher_name LIKE keyword 
+    OR book.author_name LIKE keyword) AND book.book_id=bookId;
+    
+    IF num<>0 THEN SET result=true; END IF;
+    SELECT result;
+END$$
+
+DELIMITER ;
