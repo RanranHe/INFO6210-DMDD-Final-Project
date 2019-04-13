@@ -77,11 +77,45 @@ function deleteBook(req, res) {
         })
 }
 
+function searchBook(req, res) {
+    const keyword = req.params.keyword;
+    bookService.getAllBooks()
+        .then(function (result) {
+            const results = [];
+            let i;
+
+            for (i = 0; i < result.length; i++) {
+                (function (i) {
+                    let pro = new Promise(function (resolve) {
+                        bookService.searchBook(result[i].book_id, keyword)
+                            .then(function (check) {
+                                if (check) {
+                                    return resolve(result[i]);
+                                } else {
+                                    resolve(false);
+                                }
+                            });
+                    });
+                    pro.then(function (data) {
+                        if (data) {
+                            results.push(data);
+                        }
+                        if (i === result.length - 1) {
+                            res.status(200).send({"results": results});
+                        }
+                    });
+
+                })(i);
+            }
+        })
+}
+
 module.exports = {
     getAllBooks,
     createBook,
     checkBookId,
     getBookDetails,
     updateBook,
-    deleteBook
+    deleteBook,
+    searchBook
 };

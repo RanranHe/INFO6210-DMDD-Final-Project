@@ -12,5 +12,7 @@ router.get('/book/:bookId', book.checkBookId, book.getBookDetails);
 router.put('/book/:bookId', book.checkBookId, book.updateBook);
 // delete book
 router.delete('/book/:bookId', book.checkBookId, book.deleteBook);
+// search book
+router.get('/book/search/:keyword', book.searchBook);
 
 module.exports = router;

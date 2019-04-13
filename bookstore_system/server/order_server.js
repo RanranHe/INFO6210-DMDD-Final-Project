@@ -96,12 +96,13 @@ function deleteItem(req, res) {
     orderService.deleteItem(id)
         .then(function (result) {
             if (result) {
-                res.status(200).send({"message": "Item deleted.", "itemId": id});
+                res.status(200).send({"message": "Item deleted."});
             } else {
-                res.status(400).send({"message": "Failed to delete item.", "itemId": id});
+                res.status(400).send({"message": "Failed to delete item."});
             }
         })
 }
+
 
 function deleteOrder(req, res) {
     const id = req.params.orderId;
@@ -115,7 +116,7 @@ function deleteOrder(req, res) {
         })
 }
 
-function updateStock(req, res) {
+function updateStockByOrderId(req, res) {
     const id = req.params.orderId;
     orderService.updateStock(id)
         .then(function (result) {
@@ -127,6 +128,19 @@ function updateStock(req, res) {
         })
 }
 
+function updateItem(req, res) {
+    const id = req.params.itemId;
+    const quantity = req.body.quantity;
+    orderService.updateItem(id, quantity)
+        .then(function (result) {
+            if (result) {
+                res.status(200).send({"message": "Item updated."});
+            } else {
+                res.status(400).send({"message": "Failed to update item."});
+            }
+        })
+}
+
 module.exports = {
     checkOrderId,
     getAllOrders,
@@ -134,7 +148,8 @@ module.exports = {
     createOrder,
     createItem,
     checkItemId,
-    deleteItem,
     deleteOrder,
-    updateStock
+    deleteItem,
+    updateStockByOrderId,
+    updateItem
 };
