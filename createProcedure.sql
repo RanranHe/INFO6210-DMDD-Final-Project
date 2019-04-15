@@ -113,6 +113,7 @@ DROP procedure IF EXISTS `delete_order`;
 DELIMITER $$
 USE `db_final`$$
 CREATE PROCEDURE `delete_order` (IN orderId VARCHAR(100))
+BEGIN						    
     DECLARE num INT;
     DECLARE qu INT;  
     DECLARE b_id VARCHAR(100);
