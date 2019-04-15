@@ -76,11 +76,24 @@ function updateEmployee(req, res) {
         })
 }
 
+function login(req, res) {
+    const data = req.body;
+    employeeService.login(data.username, data.password)
+        .then(function (result) {
+            if (result) {
+                res.status(200).send({"message": "login successfully"});
+            } else {
+                res.status(400).send({"message": "Failed to login"});
+            }
+        })
+}
+
 module.exports = {
     getAllEmployees,
     createEmployee,
     checkEmployeeId,
     deleteEmployee,
     getEmployee,
-    updateEmployee
+    updateEmployee,
+    login
 };

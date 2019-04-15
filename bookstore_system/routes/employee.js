@@ -9,8 +9,10 @@ router.post('/employee', employee.createEmployee);
 // delete employee
 router.delete('/employee/:employeeId', employee.checkEmployeeId, employee.deleteEmployee);
 // get employee
-router.get('/employee/:employeeId',employee.checkEmployeeId, employee.getEmployee);
+router.get('/employee/:employeeId', employee.checkEmployeeId, employee.getEmployee);
 // update employee
-router.put('/employee/:employeeId',employee.checkEmployeeId, employee.updateEmployee);
+router.put('/employee/:employeeId', employee.checkEmployeeId, employee.updateEmployee);
+// employee login
+router.post('/employee/login', employee.login);
 
 module.exports = router;

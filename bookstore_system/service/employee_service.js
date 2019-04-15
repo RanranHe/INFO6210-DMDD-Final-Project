@@ -91,11 +91,29 @@ function updateEmployee(id, name, phone, salary) {
     });
 }
 
+function login(username, password) {
+    return new Promise(function (resolve) {
+        let sql = "CALL login('" + username + "', '" + password + "', @a)";
+        con.query(sql, function (err, result) {
+            if (err) {
+                console.log("[LOGIN ERROR]: " + err);
+                resolve(false);
+            }
+            if (result) {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        });
+    });
+}
+
 module.exports = {
     getAllEmployees,
     createEmployee,
     checkEmployeeId,
     deleteEmployee,
     getEmployee,
-    updateEmployee
+    updateEmployee,
+    login
 };
