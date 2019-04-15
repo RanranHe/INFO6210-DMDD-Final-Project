@@ -16,7 +16,8 @@ CREATE TABLE `db_final`.`customer` (
   `employee_name` VARCHAR(45) NOT NULL,
   `employee_phone` CHAR(10) NOT NULL,
   `salary` DECIMAL(10,1) NOT NULL,
-  PRIMARY KEY (`employee_id`));           
+  PRIMARY KEY (`employee_id`)，
+  UNIQUE INDEX `employee_username_UNIQUE` (`employee_username` ASC));           
     
 CREATE TABLE `db_final`.`timesheet` (
   `timesheet_id` VARCHAR(100) NOT NULL,
