@@ -9,7 +9,7 @@ CREATE TABLE `db_final`.`customer` (
   `customer_email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`customer_id`));
               
- CREATE TABLE `db_final`.`employee1` (
+ CREATE TABLE `db_final`.`employee` (
   `employee_id` VARCHAR(100) NOT NULL,
   `employee_username` VARCHAR(45) NOT NULL,
   `employee_password` VARCHAR(18) NOT NULL,
