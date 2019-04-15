@@ -9,15 +9,15 @@ CREATE TABLE `db_final`.`customer` (
   `customer_email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`customer_id`));
               
- CREATE TABLE `db_final`.`employee` (
+ CREATE TABLE `db_final`.`employee1` (
   `employee_id` VARCHAR(100) NOT NULL,
   `employee_username` VARCHAR(45) NOT NULL,
   `employee_password` VARCHAR(18) NOT NULL,
   `employee_name` VARCHAR(45) NOT NULL,
   `employee_phone` CHAR(10) NOT NULL,
   `salary` DECIMAL(10,1) NOT NULL,
-  PRIMARY KEY (`employee_id`)，
-  UNIQUE INDEX `employee_username_UNIQUE` (`employee_username` ASC));           
+  PRIMARY KEY (`employee_id`),
+  UNIQUE INDEX `employee_username_UNIQUE` (`employee_username` ASC));      
     
 CREATE TABLE `db_final`.`timesheet` (
   `timesheet_id` VARCHAR(100) NOT NULL,
