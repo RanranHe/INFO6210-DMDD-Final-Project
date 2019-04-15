@@ -207,3 +207,25 @@ BEGIN
 END$$
 
 DELIMITER ;
+					 					 
+/* Login for Employees */
+DROP PROCEDURE IF EXISTS `login`;
+DELIMITER $$
+USE `db_final`$$
+CREATE PROCEDURE `login`(IN username VARCHAR(45), IN in_pass VARCHAR(150), OUT result BOOLEAN)
+BEGIN
+    DECLARE decrypted_key VARCHAR(200);
+    DECLARE pass VARCHAR(150);
+    SET decrypted_key = 'sweet';
+    
+    SELECT CONVERT(AES_DECRYPT(employee.employee_password, UNHEX(SHA2(decrypted_key,512))) USING UTF8MB4) INTO pass 
+    FROM `db_final`.`employee` WHERE employee_username=username;
+
+    SET result = false;
+    
+    IF pass=in_pass THEN SET result=true; END IF;
+    
+    SELECT result;
+END$$
+
+DELIMITER ;
