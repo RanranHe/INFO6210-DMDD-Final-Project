@@ -12,7 +12,7 @@ CREATE TABLE `db_final`.`customer` (
  CREATE TABLE `db_final`.`employee` (
   `employee_id` VARCHAR(100) NOT NULL,
   `employee_username` VARCHAR(45) NOT NULL,
-  `employee_password` VARCHAR(18) NOT NULL,
+  `employee_password` VARCHAR(150) CHARACTER SET 'ascii' NOT NULL,
   `employee_name` VARCHAR(45) NOT NULL,
   `employee_phone` CHAR(10) NOT NULL,
   `salary` DECIMAL(10,1) NOT NULL,

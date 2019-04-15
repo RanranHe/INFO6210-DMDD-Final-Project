@@ -189,3 +189,19 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+/* --------- Trigger for Employee Table ---------
+   Situations Preventing Update:
+   1. password encryption matched
+*/
+DELIMITER $$
+USE `db_final`$$
+DROP TRIGGER IF EXISTS `db_final`.`employee_password_check`$$
+CREATE TRIGGER  `db_final`.`employee_password_check` BEFORE INSERT ON `employee` FOR EACH ROW
+BEGIN
+    DECLARE encrypt_key varchar(20);
+    SET encrypt_key='key';
+    SET NEW.employee_password = aes_encrypt(NEW.employee_password, encrypt_key);
+END$$
+
+DELIMITER ;
