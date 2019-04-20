@@ -29,3 +29,36 @@ RETURN total;
 END$$
 
 DELIMITER ;
+
+						    
+						
+DROP function IF EXISTS `get_item_counts`;
+
+DELIMITER $$
+USE `db_final`$$
+CREATE FUNCTION `get_item_counts` (id VARCHAR(100))
+RETURNS INTEGER
+BEGIN
+	DECLARE num INT;
+    DECLARE i INT DEFAULT 0;
+    DECLARE qua INT;
+    DECLARE pri DECIMAL(10, 1);
+    DECLARE item_count INT DEFAULT 0;
+    
+    SELECT COUNT(*) INTO num
+    FROM item 
+    WHERE item.order_id=id;
+    
+    WHILE num>i DO
+        SELECT item.quantity, book.price INTO qua, pri
+        FROM item INNER JOIN book
+        WHERE item.order_id=id AND book.book_id=item.book_id
+        ORDER BY id
+        DESC LIMIT i, 1;
+        SET item_count=item_count+qua;
+        SET i=i+1;
+    END WHILE;
+RETURN item_count;
+END$$
+
+DELIMITER ;
