@@ -1,4 +1,4 @@
-create db_final;
+create database db_final;
 
 DROP TABLE IF EXISTS dbo.customer;
 CREATE TABLE customer
@@ -26,7 +26,7 @@ CREATE TABLE category
 (category_id VARCHAR(100) PRIMARY KEY NOT NULL, category_name VARCHAR(45) NOT NULL);
 
 ALTER TABLE employee
-ADD username varchar(45) NOT NULL, pass varbinary(400) NOT NULL;
+ADD username varchar(45) UNIQUE NOT NULL, pass varbinary(400) NOT NULL;
 
 DROP TABLE IF EXISTS dbo.publisher;
 CREATE TABLE publisher
