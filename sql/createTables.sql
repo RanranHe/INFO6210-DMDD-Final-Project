@@ -1,4 +1,4 @@
-use dmdd;
+create db_final;
 
 DROP TABLE IF EXISTS dbo.customer;
 CREATE TABLE customer
