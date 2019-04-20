@@ -1,4 +1,4 @@
-use dmdd;
+use db_final;
 GO
 INSERT INTO dbo.customer (customer_id, customer_name, customer_phone, customer_email) 
 VALUES ('8ee7b542-c493-404e-bdd4-19f2a4267708',  'Ankit Acciaio', '2615102674',  'Ankit@gmail.com');
