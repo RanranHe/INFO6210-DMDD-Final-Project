@@ -13,7 +13,7 @@ go
 open symmetric key EmpPass_SM decryption by certificate EmpPass;
 
 go
-use dmdd;
+use db_final;
 /* -------------------------------------------Employee Table--------------------------------------------------*/
 INSERT INTO dbo.employee (employee_id, username, pass, employee_name, employee_phone, salary) 
 VALUES ('295375e3-4923-42b0-b09d-b8d3aa146ff6', 'roman', ENCRYPTBYKEY(KEY_GUID('EmpPass_SM'), convert(varbinary, 'roman')), 
