@@ -14,7 +14,7 @@ INNER JOIN employee AS E ON T.employee_id=E.employee_id
 ORDER BY T.year, T.month, P.start_time DESC;
 
 CREATE OR REPLACE VIEW `order_view` AS
-SELECT O.order_id, C.customer_name, O.order_date, E.employee_name
+SELECT O.order_id, C.customer_name, O.order_date, E.employee_name,  calculate_total_price(O.order_id) as 'total_price'
 FROM `order` AS O INNER JOIN `employee` AS E ON O.employee_id=E.employee_id
 INNER JOIN `customer` AS C ON O.customer_id=C.customer_id;
 
