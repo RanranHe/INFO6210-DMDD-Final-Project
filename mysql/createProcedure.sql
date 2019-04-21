@@ -11,22 +11,13 @@ BEGIN
     DECLARE qu INT;  
     DECLARE b_id VARCHAR(100);
     SET book_updated_count=0;
-    
-    SELECT COUNT(*) INTO num
-    FROM item
-    WHERE item.order_id=orderID;
+    SELECT COUNT(*) INTO num FROM item WHERE item.order_id=orderID;
     
     WHILE num>book_updated_count  DO
-        SELECT item.quantity, item.book_id INTO qu, b_id
-        FROM item
-        WHERE item.order_id=orderID
-        ORDER BY item.order_id
-        LIMIT book_updated_count, 1;
+        SELECT item.quantity, item.book_id INTO qu, b_id FROM item WHERE item.order_id=orderID
+        ORDER BY item.order_id LIMIT book_updated_count, 1;
         
-        UPDATE book
-        SET book.stock=book.stock-qu
-        WHERE book.book_id=b_id;
-        
+        UPDATE book SET book.stock=book.stock-qu WHERE book.book_id=b_id;
         SET book_updated_count=book_updated_count+1;
     END WHILE;
     SELECT book_updated_count;
@@ -45,25 +36,18 @@ BEGIN
     DECLARE qua INT;
     DECLARE pri DECIMAL(10, 1);
     SET total=0;
-    SET item_count=0;
-    
-    SELECT COUNT(*) INTO num
-    FROM item 
-    WHERE item.order_id=id;
+    SET item_count=0;   
+    SELECT COUNT(*) INTO num FROM item WHERE item.order_id=id;
     
     WHILE num>i DO
-        SELECT item.quantity, book.price INTO qua, pri
-        FROM item INNER JOIN book
-        WHERE item.order_id=id AND book.book_id=item.book_id
-        ORDER BY id
-        DESC LIMIT i, 1;
+        SELECT item.quantity, book.price INTO qua, pri FROM item INNER JOIN book 
+	WHERE item.order_id=id AND book.book_id=item.book_id ORDER BY id DESC LIMIT i, 1;
         SET total=total+qua*pri;
         SET item_count=item_count+qua;
         SET i=i+1;
     END WHILE;
     SELECT total, item_count;
 END$$
-
 DELIMITER ;
 
                                                                                                                         
@@ -75,27 +59,20 @@ DROP procedure IF EXISTS `add_item`;
 DELIMITER $$
 USE `db_final`$$
 CREATE PROCEDURE `add_item`(IN itemId VARCHAR(100), IN orderId VARCHAR(100), IN qua INT, IN bookId VARCHAR(100),
-							OUT new_itemId VARCHAR(100), OUT new_orderId VARCHAR(100), OUT new_qua INT, OUT new_bookId VARCHAR(100))
+	OUT new_itemId VARCHAR(100), OUT new_orderId VARCHAR(100), OUT new_qua INT, OUT new_bookId VARCHAR(100))
 BEGIN
-	DECLARE num INT;
+    DECLARE num INT;
     DECLARE i INT DEFAULT 0;
-    DECLARE cur_qua INT;
+    DECLARE cur_qua INT;  
+    SELECT COUNT(*) INTO num FROM item WHERE order_id=orderId AND book_id=bookId;
     
-	SELECT COUNT(*) INTO num 
-    FROM item WHERE order_id=orderId AND book_id=bookId;
-    
-	IF num=0 THEN
-		INSERT INTO item (`item_id`, `order_id`, `quantity`, `book_id`) 
-		VALUES (itemId, orderId, qua, bookId);
-        
+    IF num=0 THEN
+        INSERT INTO item (`item_id`, `order_id`, `quantity`, `book_id`) VALUES (itemId, orderId, qua, bookId);
         SELECT itemId, orderId, qua, bookId INTO new_itemId, new_orderId, new_qua, new_bookId;
-	ELSE 
-		SELECT item.quantity, item.item_id INTO cur_qua, itemId FROM item 
-        WHERE order_id=orderId AND book_id=bookId;
-        
+    ELSE 
+	SELECT item.quantity, item.item_id INTO cur_qua, itemId FROM item WHERE order_id=orderId AND book_id=bookId;
         SET cur_qua=cur_qua+qua;
-		UPDATE item SET item.quantity=cur_qua WHERE order_id=orderId AND book_id=bookId;
-        
+	UPDATE item SET item.quantity=cur_qua WHERE order_id=orderId AND book_id=bookId;        
         SELECT itemId, orderId, cur_qua, bookId INTO new_itemId, new_orderId, new_qua, new_bookId;
     END IF;
     UPDATE book SET book.stock=book.stock-qua WHERE book.book_id=bookId;
@@ -117,30 +94,18 @@ BEGIN
     DECLARE num INT;
     DECLARE qu INT;  
     DECLARE b_id VARCHAR(100);
-    DECLARE i INT DEFAULT 0;
-    
-    SELECT COUNT(*) INTO num
-    FROM item
-    WHERE item.order_id=orderID;
-    
+    DECLARE i INT DEFAULT 0;    
+    SELECT COUNT(*) INTO num FROM item WHERE item.order_id=orderID;    
     WHILE num>i  DO
-        SELECT item.quantity, item.book_id INTO qu, b_id
-        FROM item
-        WHERE item.order_id=orderID
-        ORDER BY item.order_id
-        LIMIT i, 1;
-        
-        UPDATE book
-        SET book.stock=book.stock+qu
-        WHERE book.book_id=b_id;
-        
+        SELECT item.quantity, item.book_id INTO qu, b_id FROM item WHERE item.order_id=orderID
+        ORDER BY item.order_id LIMIT i, 1;   
+        UPDATE book SET book.stock=book.stock+qu WHERE book.book_id=b_id;
         SET i=i+1;
     END WHILE;
 						    
     DELETE FROM `db_final`.`item` WHERE order_id=orderId;
     DELETE FROM `db_final`.`order` WHERE order_id=orderId;
 END$$
-
 DELIMITER ;
 						    
 /* Delete timesheet with all periods under it */
