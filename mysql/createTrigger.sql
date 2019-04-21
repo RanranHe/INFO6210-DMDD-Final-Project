@@ -173,22 +173,6 @@ END$$
 
 DELIMITER ;
 		
-/* --------- Trigger for Location Table ---------
-   Situations Preventing Update:
-   1. same location
-*/
-DELIMITER $$
-USE `db_final`$$
-DROP TRIGGER IF EXISTS `db_final`.`location_update_check`$$
-CREATE TRIGGER  `db_final`.`location_update_check` BEFORE UPDATE ON `location` FOR EACH ROW
-BEGIN
-   DECLARE num INT;
-   SELECT COUNT(*) INTO num
-   FROM `db_final`.`location` AS L WHERE NEW.shelf_no=L.shelf_no AND NEW.row=L.row AND NEW.column=L.column;
-   IF num<>0 THEN SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Duplicated location'; END IF;
-END$$
-
-DELIMITER ;
 
 /* --------- Trigger for Employee Table ---------
    Situations Preventing Update:
