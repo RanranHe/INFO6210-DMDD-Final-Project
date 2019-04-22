@@ -13,6 +13,6 @@ router.get('/employee/:employeeId', employee.checkEmployeeId, employee.getEmploy
 // update employee
 router.put('/employee/:employeeId', employee.checkEmployeeId, employee.updateEmployee);
 // employee login
-router.post('/employee/login', employee.checkEmployeeId, employee.login);
+router.post('/employee/login', employee.login);
 
 module.exports = router;

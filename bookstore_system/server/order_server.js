@@ -118,7 +118,7 @@ function deleteOrder(req, res) {
 
 function updateStockByOrderId(req, res) {
     const id = req.params.orderId;
-    orderService.updateStock(id)
+    orderService.updateStockByOrderId(id)
         .then(function (result) {
             if (result) {
                 res.status(200).send({"message": result.book_updated_count + " books stock updated"});
