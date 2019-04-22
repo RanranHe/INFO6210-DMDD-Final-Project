@@ -11,7 +11,7 @@ function getAllEmployees(req, res) {
 function createEmployee(req, res) {
     const data = req.body;
     const id = uuid();
-    employeeService.createEmployee(id, data.name, data.phone, data.salary)
+    employeeService.createEmployee(id, data.username, data.password, data.name, data.phone, data.salary)
         .then(function (result) {
             if (result) {
                 res.status(200).send({

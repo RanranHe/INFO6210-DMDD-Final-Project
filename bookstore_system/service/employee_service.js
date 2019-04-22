@@ -15,10 +15,11 @@ function getAllEmployees() {
     });
 }
 
-function createEmployee(id, name, phone, salary) {
+function createEmployee(id, username, password, name, phone, salary) {
     return new Promise(function (resolve) {
-        let sql = "INSERT INTO `db_final`.`employee` (`employee_id`, `employee_name`, `employee_phone`, `salary`) " +
-            "VALUES ('" + id + "', '" + name + "', '" + phone + "', '" + salary + "')";
+        let sql = "INSERT INTO `db_final`.`employee` (`employee_id`, `employee_username`, `employee_password`, `employee_name`, `employee_phone`, `salary`) " +
+            "VALUES ('" + id + "', '" + username + "', AES_ENCRYPT('" + password + "', UNHEX(SHA2('sweet',512))), '" + name + "', '" + phone + "', '" + salary + "')";
+        console.log(sql);
         con.query(sql, function (err) {
             if (err) {
                 console.log("[INSERT EMPLOYEES ERROR]: " + err);
